@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"> <!-- Include the compiled CSS file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #666;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        #signup-link {
+            margin-top: 15px;
+            color: #4caf50;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="username" action="javascript:login_user()">
+          <h1>Login Page</h1>
+            <p><label>
+                    User ID:
+                    <input class="userInput" type="text" name="uid" id="uid" required>
+                </label></p>
+            <p><label>
+                    Password:
+                    <input class="userInput" type="password" name="password" id="password" required>
+                </label></p>
+            <p>
+                <button>Login</button>
+            </p>
+            <a href='{{site.baseurl}}/signUp'>Sign Up</a><br><br>
+            <a href='{{site.baseurl}}/login-redirect'>Home</a>
+        </form>
+    </div>
+
+    <!-- 
+    Below JavaScript code is designed to handle user authentication in a web application. It's written to work with a backend server that uses JWT (JSON Web Tokens) for authentication.
+
+    The script defines a function when the page loads. This function is triggered when the Login button in the HTML form above is pressed. -->
+    
+    <script type="module">
+
+        // uri variable and options object are obtained from config.js
+        import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+
+        function login_user() {
+            // Set Authenticate endpoint
+            const url = uri + '/api/users/authenticate';
+
+            // Set the body of the request to include login data from the DOM
+            const body = {
+                // name: document.getElementById("name").value,
+                uid: document.getElementById("uid").value,
+                password: document.getElementById("password").value,
+                // dob: document.getElementById("dob").value
+            };
+
+            // Change options according to Authentication requirements
+            const authOptions = {
+                ...options, // This will copy all properties from options
+                method: 'POST', // Override the method property
+                cache: 'no-cache', // Set the cache property
+                body: JSON.stringify(body)
+            };
+
+            // Fetch JWT and authentication API
+            fetch(url, authOptions)
+                .then(response => {
+                    // handle error response from Web API
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            // Unauthorized - Redirect to 401 error page
+                            window.location.href = "{{site.baseurl}}/401.html";
+                        } else if (response.status === 403) {
+                            // Forbidden - Redirect to 403 error page
+                            window.location.href = "{{site.baseurl}}/403.html";
+                        } else if (response.status === 400) {
+                            // Forbidden - Redirect to 400 error page
+                            window.location.href = "{{site.baseurl}}/400.html";
+                        } else if (response.status === 404) {
+                            // Not Found - Redirect to 404 error page
+                            window.location.href = "{{site.baseurl}}/404.html";
+                        } else {
+                            // Handle other error responses
+                            const errorMsg = 'Login error: ' + response.status;
+                            console.log(errorMsg);
+                        }
+                        return;
+                    }
+                    // Success!!!
+                    // Redirect to the database page
+                    alert("Successfully logged in! You will be redirected to the user database.")
+                    window.location.href = "{{site.baseurl}}/data/database";
+                })
+                // catch fetch errors (ie ACCESS to server blocked)
+                .catch(err => {
+                    console.error(err);
+                });
+        }
+        // Attach login_user to the window object, allowing access to form action
+        window.login_user = login_user;
+
+    </script>
+</body>
+
+</html>
