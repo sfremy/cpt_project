@@ -1,0 +1,74 @@
+// styles.scss
+
+// Global styles
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000000; // Set the background color to black
+    color: #FFFFFF; // Set the default text color to white
+}
+
+// Header styles
+header {
+    background-color: #3498db;
+    color: #000000;
+    padding: 20px;
+    text-align: center;
+
+    h1 {
+        font-size: 24px;
+    }
+}
+
+// Main content styles
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    color: #000000;
+
+    .college-button {
+        background-color: #2ecc71;
+        color: #000000;
+        padding: 15px;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: crosshair;
+        width: 200px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+
+        &:hover {
+            background-color: #27ae60;
+        }
+    }
+
+    // Chatbot icon styles
+    #chatbot-icon {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background-color: #3498db;
+        color: #FFFFFF; // Ensure icon text is visible on the background
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #2980b9;
+        }
+    }
+}
+
+// Responsive styles
+@media screen and (max-width: 768px) {
+    main {
+        .college-button {
+            width: 100%;
+        }
+    }
+}
