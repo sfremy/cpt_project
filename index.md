@@ -21,12 +21,11 @@ permalink: /myscout
         <h1 id="welcome-message">Welcome, Guest</h1>
     </header>
     <main>
-        <button class="college-button">College 1</button>
-        <button class="college-button">College 2</button>
-        <button class="college-button">College 3</button>
-        <button class="college-button">College 4</button>
-        <!-- Add more college buttons as needed -->
-        <!-- Chatbot icon -->
+        <title>Your Colleges</title>
+        <!--POST USER'S COLLEGE LIST HERE-->
+        <title>Search Colleges</title>
+        <!--BUTTON TO UPDATE COLLEGES-->
+        <!--POST FULL COLLEGE LIST HERE-->
         <div id="chatbot-icon">&#128172;</div>
     </main>
     <script>
