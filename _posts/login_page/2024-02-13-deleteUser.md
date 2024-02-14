@@ -1,7 +1,7 @@
 ---
 comments: True
 layout: base
-title: CollegeApp Scout Login
+title: CollegeApp Scout Delete User
 courses: {'compsci': {'week': 4}}
 type: hacks
 permalink: /deleteUser
