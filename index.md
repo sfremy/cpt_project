@@ -56,3 +56,15 @@ permalink: /myscout
         window.onload = updateWelcomeMessage;
     </script>
 </body>
+<script>
+window.embeddedChatbotConfig = {
+chatbotId: "i0qi9UFe_VVLBFzSJ5_35",
+domain: "www.chatbase.co"
+}
+</script>
+<script
+src="https://www.chatbase.co/embed.min.js"
+chatbotId="i0qi9UFe_VVLBFzSJ5_35"
+domain="www.chatbase.co"
+defer>
+</script>
