@@ -1,57 +1,20 @@
 ---
 layout: default
-title: CollegeApp Scout
-permalink: /home-page
+title: MyScout
+permalink: /myscout
 ---
 
-<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #3498db;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px;
-        }
-        .college-button {
-            background-color: #2ecc71;
-            color: #fff;
-            padding: 15px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 200px;
-            text-align: center;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        #chatbot-icon {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: #3498db;
-            color: #fff;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-    </style>
-    <title>College Application Tracker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styling/scss/login.css">
+<div id="titleContainer">
+    <h1 id="title">CollegeApp Scout</h1>
+</div>
+
+<div class="background">
+
+</div>
 </head>
 <body>
     <header>
@@ -94,4 +57,3 @@ permalink: /home-page
         window.onload = updateWelcomeMessage;
     </script>
 </body>
-</html>
