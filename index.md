@@ -3,6 +3,7 @@ layout: default
 title: MyScout
 permalink: /myscout
 ---
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,9 +15,6 @@ permalink: /myscout
             background: #F0F0F0;
             margin: 0;
             padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between; /* Added for responsiveness */
         }
         header {
             margin-bottom: 30px;
@@ -31,7 +29,6 @@ permalink: /myscout
         }
         #reviewApplications {
             text-align: center;
-            width: 65%; /* Adjusted width to make room for the news section */
         }
         #reviewApplications h2 {
             color: #333;
@@ -60,12 +57,10 @@ permalink: /myscout
             vertical-align: middle;
         }
         #newsSection {
-            width: 30%;
+            width: 100%;
             background: #fff;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: sticky; /* Added to make the news section sticky */
-            top: 20px; /* Adjusted top value to control sticky positioning */
         }
         #newsSection h3 {
             margin-top: 0;
