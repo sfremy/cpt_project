@@ -108,7 +108,7 @@ permalink: /myscout
         <section id="reviewApplications">
             <h2>REVIEW YOUR APPLICATIONS</h2>
     <!-- 大学列表 -->
-<ul>
+<ul id="appList">
   <li data-url="https://admission.stanford.edu/apply/"><img src="https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/block-s-right.png" alt="Stanford University Logo"><span>Stanford University</span></li>
   <li><img src="https://1000logos.net/wp-content/uploads/2017/02/Harvard-Logo.png" alt="Harvard University Logo"><span>Harvard University</span></li>
   <li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/MIT_logo.svg/2560px-MIT_logo.svg.png" alt="MIT Logo"><span>MIT</span></li>
@@ -133,6 +133,15 @@ permalink: /myscout
     </article>
 
 <script>
+var list = document.getElementById("appList");
+  // Add click event listeners to all list items
+  var listItems = list.getElementsByTagName("li");
+  for (var i = 0; i < listItems.length; i++) {
+      listItems[i].addEventListener("click", function() {
+          var url = this.getAttribute("data-url");
+          window.location.href = url;
+      });
+  }
 // Simulate fetching news data from an API
 function fetchNews() {
   // Example static news data
