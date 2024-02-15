@@ -3,7 +3,17 @@ layout: default
 title: MyScout
 permalink: /myscout
 ---
-
+<style>
+        .user-colleges-table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+        .user-colleges-table th, .user-colleges-table td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+</style>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,10 +32,12 @@ permalink: /myscout
     </header>
     <main>
         <title>Your Colleges</title>
-        <!--POST USER'S COLLEGE LIST HERE-->
+        <div id="table-container"></div>
         <title>Search Colleges</title>
         <!--BUTTON TO UPDATE COLLEGES-->
-        <!--POST FULL COLLEGE LIST HERE-->
+        <title>All Colleges</title>
+        <div id="full-table"></div>
+        <p>Please spell college names correctly and separate with spaces to prevent formatting errors.</p>
         <div id="chatbot-icon">&#128172;</div>
     </main>
     <script>
@@ -52,7 +64,69 @@ permalink: /myscout
                 document.getElementById('welcome-message').textContent = `Welcome, Guest`;
             }
         }
-        // Call the function when the page loads or after a successful login
+        async function getUserColleges() {
+            const url = uri + '/api/users/get_user_colleges';
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const table = document.createElement('table');
+                table.classList.add('user-colleges-table');
+                // Create table header
+                const headerRow = table.insertRow();
+                for (const key in data[0]) {
+                    const headerCell = document.createElement('th');
+                    headerCell.textContent = key;
+                    headerRow.appendChild(headerCell);
+                }
+                // Create table body
+                data.forEach(college => {
+                    const row = table.insertRow();
+                    for (const key in college) {
+                        const cell = row.insertCell();
+                        cell.textContent = college[key];
+                    }
+                });
+                // Append the table to a container element in your HTML
+                const container = document.getElementById('table-container');
+                container.innerHTML = ''; // Clear previous content
+                container.appendChild(table);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        async function getCollegeTable() {
+            const url = uri + '/api/users/get_table';
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const table = document.createElement('table');
+                table.classList.add('colleges-table');
+                // Create table header
+                const headerRow = table.insertRow();
+                for (const key in data[0]) {
+                    const headerCell = document.createElement('th');
+                    headerCell.textContent = key;
+                    headerRow.appendChild(headerCell);
+                }
+                // Create table body
+                data.forEach(college => {
+                    const row = table.insertRow();
+                    for (const key in college) {
+                        const cell = row.insertCell();
+                        cell.textContent = college[key];
+                    }
+                });
+                // Append the table to a container element in your HTML
+                const container = document.getElementById('full-table');
+                container.innerHTML = ''; // Clear previous content
+                container.appendChild(table);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        //Onclick function to pass string taken from text window to ulist_update as variable ulist, with uid.
         window.onload = updateWelcomeMessage;
     </script>
 </body>
