@@ -76,14 +76,14 @@ permalink: /data/database
 </table>
 
 <div>
-  <button onclick='window.location.href = "{{site.baseurl}}/lmc-editUser"'>Edit User</button>
+  <button onclick='window.location.href = "{{site.baseurl}}/editUser"'>Edit User</button>
 </div>
 
 <div>
-  <button onclick='window.location.href = "{{site.baseurl}}/lmc-deleteUser"'>Delete User</button>
+  <button onclick='window.location.href = "{{site.baseurl}}/deleteUser"'>Delete User</button>
 </div>
 
-<p><a href="{{site.baseurl}}/login-redirect">Return to home page</a></p>
+<p><a href="{{site.baseurl}}/home-page">Return to home page</a></p>
 
 <!-- 
 Below JavaScript code fetches user data from an API and displays it in a table. It uses the Fetch API to make a GET request to the '/api/users/' endpoint.   Refer to config.js to see additional options. 
