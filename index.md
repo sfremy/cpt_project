@@ -3,98 +3,17 @@ layout: default
 title: MyScout
 permalink: /myscout
 ---
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>College Application Portal</title>
-<style>
-body {
-  font-family: 'Arial', sans-serif;
-  background: #f0f0f0;
-  margin: 0;
-  padding: 20px;
-}
-header {
-  margin-bottom: 30px;
-}
-input[type="search"] {
-  padding: 10px;
-  font-size: 1rem;
-  border: 2px solid #000;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 400px;
-}
-#reviewApplications {
-  text-align: center;
-}
-#reviewApplications h2 {
-  color: #333;
-  margin-bottom: 20px;
-}
-#reviewApplications ul {
-  list-style: none;
-  padding: 0;
-}
-#reviewApplications ul li {
-  display: inline-block;
-  margin: 10px;
-  padding: 10px;
-  border: 2px solid #888;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-}
-#reviewApplications ul li:hover {
-  border-color: #0056b3;
-  background-color: #e0f0ff;
-  cursor: pointer;
-}
-#reviewApplications ul li img {
-  height: 30px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-#newsSection {
-  float: right;
-  width: 30%;
-  background: #fff;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-#newsSection h3 {
-  margin-top: 0;
-}
-#newsSection article {
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-}
-#aiHelp {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #fff;
-  border: 2px solid #888;
-  border-radius: 50px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-#aiHelp button {
-  border: none;
-  background: none;
-  color: #0056b3;
-  font-size: 1rem;
-  cursor: pointer;
-}
-@media (max-width: 768px) {
-  #newsSection {
-    float: none;
-    width: 100%;
-    margin-top: 20px;
-  }
-}
-</style>
+<link rel="stylesheet" href="styling/scss/login.css">
+<div id="titleContainer">
+    <h1 id="title">CollegeApp Scout</h1>
+</div>
+
+<div class="background">
+
+</div>
 </head>
 <body>
     <header>
@@ -102,10 +21,12 @@ input[type="search"] {
     </header>
     <main>
         <title>Your Colleges</title>
-        <!--POST USER'S COLLEGE LIST HERE-->
+        <div id="table-container"></div>
         <title>Search Colleges</title>
         <!--BUTTON TO UPDATE COLLEGES-->
-        <!--POST FULL COLLEGE LIST HERE-->
+        <title>All Colleges</title>
+        <div id="full-table"></div>
+        <p>Please spell college names correctly and separate with spaces to prevent formatting errors.</p>
         <div id="chatbot-icon">&#128172;</div>
     </main>
     <script>
@@ -132,56 +53,81 @@ input[type="search"] {
                 document.getElementById('welcome-message').textContent = `Welcome, Guest`;
             }
         }
-        // Call the function when the page loads or after a successful login
+        async function getUserColleges() {
+            const url = uri + '/api/users/get_user_colleges';
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const table = document.createElement('table');
+                table.classList.add('user-colleges-table');
+                // Create table header
+                const headerRow = table.insertRow();
+                for (const key in data[0]) {
+                    const headerCell = document.createElement('th');
+                    headerCell.textContent = key;
+                    headerRow.appendChild(headerCell);
+                }
+                // Create table body
+                data.forEach(college => {
+                    const row = table.insertRow();
+                    for (const key in college) {
+                        const cell = row.insertCell();
+                        cell.textContent = college[key];
+                    }
+                });
+                // Append the table to a container element in your HTML
+                const container = document.getElementById('table-container');
+                container.innerHTML = ''; // Clear previous content
+                container.appendChild(table);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        async function getCollegeTable() {
+            const url = uri + '/api/users/get_table';
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const table = document.createElement('table');
+                table.classList.add('colleges-table');
+                // Create table header
+                const headerRow = table.insertRow();
+                for (const key in data[0]) {
+                    const headerCell = document.createElement('th');
+                    headerCell.textContent = key;
+                    headerRow.appendChild(headerCell);
+                }
+                // Create table body
+                data.forEach(college => {
+                    const row = table.insertRow();
+                    for (const key in college) {
+                        const cell = row.insertCell();
+                        cell.textContent = college[key];
+                    }
+                });
+                // Append the table to a container element in your HTML
+                const container = document.getElementById('full-table');
+                container.innerHTML = ''; // Clear previous content
+                container.appendChild(table);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        //Onclick function to pass string taken from text window to ulist_update as variable ulist, with uid.
         window.onload = updateWelcomeMessage;
     </script>
 </body>
-</html>
 <script>
-// Simulate fetching news data from an API
-function fetchNews() {
-  // Example static news data
-  const newsData = [
-    { title: "College Applications Reach Record Numbers", summary: "The number of college applications has hit a new record this year, with universities seeing a significant increase in submissions." },
-    { title: "Scholarship Opportunities Expand", summary: "Several new scholarship programs have been announced, aiming to support students from diverse backgrounds in achieving their higher education goals." },
-    { title: "Innovative STEM Programs Launched", summary: "Leading universities are introducing cutting-edge STEM programs to keep pace with the rapidly evolving demands of the tech industry." }
-  ];
-  return newsData;
+window.embeddedChatbotConfig = {
+chatbotId: "i0qi9UFe_VVLBFzSJ5_35",
+domain: "www.chatbase.co"
 }
-function updateNewsSection() {
-  const newsData = fetchNews();
-  const newsSection = document.getElementById('newsSection');
-  // Clear existing news content
-  newsSection.innerHTML = '<h3>Recent college news</h3>'; 
-  // Dynamically create and append news articles
-  newsData.forEach(news => {
-    const article = document.createElement('article');
-    const title = document.createElement('h4');
-    const summary = document.createElement('p');
-    title.textContent = news.title;
-    summary.textContent = news.summary;
-    article.appendChild(title);
-    article.appendChild(summary);
-    newsSection.appendChild(article);
-  });
-}
-// Call the function to update the news section when the page loads
-document.addEventListener('DOMContentLoaded', updateNewsSection);
 </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const searchInput = document.getElementById('collegeSearch');
-  const colleges = document.querySelectorAll('#reviewApplications ul li');
-  searchInput.addEventListener('input', function() {
-    const searchText = searchInput.value.toLowerCase();
-    colleges.forEach(college => {
-      const collegeName = college.textContent.toLowerCase();
-      if (collegeName.includes(searchText)) {
-        college.style.display = '';
-      } else {
-        college.style.display = 'none';
-      }
-    });
-  });
-});
+<script
+src="https://www.chatbase.co/embed.min.js"
+chatbotId="i0qi9UFe_VVLBFzSJ5_35"
+domain="www.chatbase.co"
+defer>
 </script>
