@@ -5,106 +5,110 @@ permalink: /myscout
 ---
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>College Application Portal</title>
-<style>
-body {
-  font-family: 'Arial', sans-serif;
-  background: #F0F0F0;
-  margin: 0;
-  padding: 20px;
-}
-header {
-  margin-bottom: 30px;
-}
-input[type="search"] {
-  padding: 10px;
-  font-size: 1rem;
-  border: 2px solid #000;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 400px;
-}
-#reviewApplications {
-  text-align: center;
-}
-#reviewApplications h2 {
-  color: #333;
-  margin-bottom: 20px;
-}
-#reviewApplications ul {
-  list-style: none;
-  padding: 0;
-}
-#reviewApplications ul li {
-  display: inline-block;
-  margin: 10px;
-  padding: 10px;
-  border: 2px solid #888;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-}
-#reviewApplications ul li:hover {
-  border-color: #0056B3;
-  background-color: #E0F0FF;
-  cursor: pointer;
-}
-#reviewApplications ul li img {
-  height: 30px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-#newsSection {
-  float: right;
-  width: 30%;
-  background: #fff;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-#newsSection h3 {
-  margin-top: 0;
-}
-#newsSection article {
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-}
-#aiHelp {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #fff;
-  border: 2px solid #888;
-  border-radius: 50px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-#aiHelp button {
-  border: none;
-  background: none;
-  color: #0056B3;
-  font-size: 1rem;
-  cursor: pointer;
-}
-@media (max-width: 768px) {
-  #newsSection {
-    float: none;
-    width: 100%;
-    margin-top: 20px;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Application Portal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #F0F0F0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Added for responsiveness */
+        }
+        header {
+            margin-bottom: 30px;
+        }
+        input[type="search"] {
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #000;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+        #reviewApplications {
+            text-align: center;
+            width: 65%; /* Adjusted width to make room for the news section */
+        }
+        #reviewApplications h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #reviewApplications ul {
+            list-style: none;
+            padding: 0;
+        }
+        #reviewApplications ul li {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid #888;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        #reviewApplications ul li:hover {
+            border-color: #0056B3;
+            background-color: #E0F0FF;
+            cursor: pointer;
+        }
+        #reviewApplications ul li img {
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        #newsSection {
+            width: 30%;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky; /* Added to make the news section sticky */
+            top: 20px; /* Adjusted top value to control sticky positioning */
+        }
+        #newsSection h3 {
+            margin-top: 0;
+        }
+        #newsSection article {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        #aiHelp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #fff;
+            border: 2px solid #888;
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #aiHelp button {
+            border: none;
+            background: none;
+            color: #0056B3;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            #newsSection {
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-  <input type="search" placeholder="Search for colleges..." id="collegeSearch">
-</header>
-<main>
-  <section id="reviewApplications">
-    <h2>REVIEW YOUR APPLICATIONS</h2>
+    <header>
+        <input type="search" placeholder="Search for colleges..." id="collegeSearch">
+    </header>
+    <main>
+        <section id="reviewApplications">
+            <h2>REVIEW YOUR APPLICATIONS</h2>
     <!-- 大学列表 -->
-    <ul>
+<ul>
   <li><img src="https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/block-s-right.png" alt="Stanford University Logo"><span>Stanford University</span></li>
   <li><img src="https://1000logos.net/wp-content/uploads/2017/02/Harvard-Logo.png" alt="Harvard University Logo"><span>Harvard University</span></li>
   <li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/MIT_logo.svg/2560px-MIT_logo.svg.png" alt="MIT Logo"><span>MIT</span></li>
