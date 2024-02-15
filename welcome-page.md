@@ -27,6 +27,7 @@ permalink: /home-page
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 400px;
+            margin: auto; /* Center the container */
         }
         h1 {
             color: #3498db;
