@@ -5,13 +5,23 @@ body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #000000; // Set the background color to black
-    color: #ffffff; // Set the default text color to white
+    background: linear-gradient(135deg, #82addb, #ebb2b1, #82addb); // Soothing wave of colors
+    color: #FFFFFF; // Set the default text color to white
+    animation: moveBackground 10s linear infinite; // Animation for moving background
+}
+
+@keyframes moveBackground {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
 }
 
 // Header styles
 header {
-    background-color: #3498db;
+    background-color: #88c6f0;
     color: #000000;
     padding: 20px;
     text-align: center;

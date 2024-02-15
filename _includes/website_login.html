@@ -1,3 +1,5 @@
+
+
 <html>
 
 <style>
@@ -98,8 +100,8 @@ The form triggers the login_user function defined in the JavaScript below when t
                     }
                     // Success!!!
                     // Redirect to the database page
-                    alert("Successfully logged in! You will be redirected to the home page.")
-                    window.location.href = "{{site.baseurl}}/home-page";
+                    alert("Successfully logged in! You will be redirected to MyScout.")
+                    window.location.href = "{{site.baseurl}}/myscout";
                 })
                 // catch fetch errors (ie ACCESS to server blocked)
                 .catch(err => {
@@ -111,5 +113,16 @@ The form triggers the login_user function defined in the JavaScript below when t
 
     </script>
 </body>
-
+<script>
+    window.embeddedChatbotConfig = {
+    chatbotId: "i0qi9UFe_VVLBFzSJ5_35",
+    domain: "www.chatbase.co"
+    }
+    </script>
+    <script
+    src="https://www.chatbase.co/embed.min.js"
+    chatbotId="i0qi9UFe_VVLBFzSJ5_35"
+    domain="www.chatbase.co"
+    defer>
+    </script>
 </html>
