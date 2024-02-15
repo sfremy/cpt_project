@@ -102,18 +102,18 @@ input[type="search"] {
     <h2>REVIEW YOUR APPLICATIONS</h2>
     <!-- 大学列表 -->
     <ul>
-  <li><img src="path/to/stanford-logo.png" alt="Stanford University Logo"><span>Stanford University</span></li>
-  <li><img src="path/to/harvard-logo.png" alt="Harvard University Logo"><span>Harvard University</span></li>
-  <li><img src="path/to/mit-logo.png" alt="MIT Logo"><span>MIT</span></li>
-  <li><img src="path/to/georgiatech-logo.png" alt="Georgia Tech Logo"><span>Georgia Tech</span></li>
-  <li><img src="path/to/duke-logo.png" alt="Duke University Logo"><span>Duke University</span></li>
-  <li><img src="path/to/yale-logo.png" alt="Yale University Logo"><span>Yale University</span></li>
+  <li><img src="https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/block-s-right.png" alt="Stanford University Logo"><span>Stanford University</span></li>
+  <li><img src="https://1000logos.net/wp-content/uploads/2017/02/Harvard-Logo.png" alt="Harvard University Logo"><span>Harvard University</span></li>
+  <li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/MIT_logo.svg/2560px-MIT_logo.svg.png" alt="MIT Logo"><span>MIT</span></li>
+  <li><img src="https://brand.gatech.edu/sites/default/files/inline-images/GTVertical_RGB.png" alt="Georgia Tech Logo"><span>Georgia Tech</span></li>
+  <li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Duke_Blue_Devils_logo.svg/909px-Duke_Blue_Devils_logo.svg.png" alt="Duke University Logo"><span>Duke University</span></li>
+  <li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Yale_University_logo.svg/2560px-Yale_University_logo.svg.png" alt="Yale University Logo"><span>Yale University</span></li>
   <!-- 添加更多大学列表项 -->
-  <li><img src="path/to/princeton-logo.png" alt="Princeton University Logo"><span>Princeton University</span></li>
-  <li><img src="path/to/columbia-logo.png" alt="Columbia University Logo"><span>Columbia University</span></li>
-  <li><img src="path/to/uchicago-logo.png" alt="University of Chicago Logo"><span>University of Chicago</span></li>
-  <li><img src="path/to/berkeley-logo.png" alt="UC Berkeley Logo"><span>UC Berkeley</span></li>
-  <li><img src="path/to/ucla-logo.png" alt="UCLA Logo"><span>UCLA</span></li>
+  <li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Princeton_seal.svg/1200px-Princeton_seal.svg.png" alt="Princeton University Logo"><span>Princeton University</span></li>
+  <li><img src="https://admissions.ucr.edu/sites/default/files/styles/form_preview/public/2020-07/ucr-education-logo-columbia-university.png?itok=-0FD6Ma2" alt="Columbia University Logo"><span>Columbia University</span></li>
+  <li><img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/University_of_Chicago_Coat_of_arms.png" alt="University of Chicago Logo"><span>University of Chicago</span></li>
+  <li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Seal_of_University_of_California%2C_Berkeley.svg/1200px-Seal_of_University_of_California%2C_Berkeley.svg.png" alt="UC Berkeley Logo"><span>UC Berkeley</span></li>
+  <li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/UCLA_Bruins_primary_logo.svg/1200px-UCLA_Bruins_primary_logo.svg.png" alt="UCLA Logo"><span>UCLA</span></li>
   <!-- 确保所有图片路径都是正确的 -->
 </ul>
   </section>
