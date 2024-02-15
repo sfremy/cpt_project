@@ -104,8 +104,8 @@ input[type="search"] {
   <section id="reviewApplications">
     <h2>REVIEW YOUR APPLICATIONS</h2>
     <!-- 大学列表 -->
-    <ul>
-  <li><img src="https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/block-s-right.png" alt="Stanford University Logo"><span>Stanford University</span></li>
+    <ul id='search-list'>
+  <li data-url=""><img src="https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/block-s-right.png" alt="Stanford University Logo"><span>Stanford University</span></li>
   <li><img src="https://1000logos.net/wp-content/uploads/2017/02/Harvard-Logo.png" alt="Harvard University Logo"><span>Harvard University</span></li>
   <li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/MIT_logo.svg/2560px-MIT_logo.svg.png" alt="MIT Logo"><span>MIT</span></li>
   <li><img src="https://brand.gatech.edu/sites/default/files/inline-images/GTVertical_RGB.png" alt="Georgia Tech Logo"><span>Georgia Tech</span></li>
@@ -129,6 +129,15 @@ input[type="search"] {
     </article>
 
 <script>
+var list = document.getElementById("myList");
+var listItems = list.getElementsByTagName("li");
+        for (var i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener("click", function() {
+                var url = this.getAttribute("data-url");
+                window.location.href = url;
+                // You can perform any action you want here
+            });
+        }
 // Simulate fetching news data from an API
 function fetchNews() {
   // Example static news data
