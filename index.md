@@ -103,6 +103,7 @@ permalink: /myscout
         <section id="reviewApplications">
             <h2>REVIEW YOUR APPLICATIONS</h2>
     <!-- 大学列表 -->
+<!-- NOTE: Remove this version of appList after implementing the API-retrieved variant below.-->
 <ul id="appList">
   <li data-url="https://admission.stanford.edu/apply/"><img src="https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/block-s-right.png" alt="Stanford University Logo"><span>Stanford University</span></li>
   <li data-url="https://college.harvard.edu/admissions/apply"><img src="https://1000logos.net/wp-content/uploads/2017/02/Harvard-Logo.png" alt="Harvard University Logo"><span>Harvard University</span></li>
