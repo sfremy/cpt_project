@@ -118,6 +118,14 @@ permalink: /myscout
   <li data-url="https://admission.ucla.edu/apply"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/UCLA_Bruins_primary_logo.svg/1200px-UCLA_Bruins_primary_logo.svg.png" alt="UCLA Logo"><span>UCLA</span></li>
   <!-- 确保所有图片路径都是正确的 -->
 </ul>
+<!--
+------------------- CHANGED FULL LIST ENTRY -------------------
+<ul id="api_applist">
+</ul>
+-------------------- USER APPLICATION LIST --------------------
+<ul id="user_applist">
+</ul>
+-->
   </section>
   <aside id="newsSection">
     <h3>Recent college news</h3>
@@ -183,6 +191,126 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+/**
+const apiURL = {FILL THIS IN}
+//------------------- GENERATE FULL LIST OF ANY KIND -------------------
+function generateList(jsonData,list-container) {
+        const listContainer = document.getElementById(list-container);
+
+        // Iterate over each item in the JSON data
+        jsonData.forEach(item => {
+            // Create list item
+            const listItem = document.createElement('li');
+
+            // Create anchor element for the URL
+            const link = document.createElement('a');
+            link.href = item.url;
+            link.textContent = item.name;
+            listItem.appendChild(link);
+
+            // Create image element
+            const image = document.createElement('img');
+            image.src = item.img;
+            listItem.appendChild(image);
+
+            // Append list item to the container
+            listContainer.appendChild(listItem);
+        });
+    }
+
+//------------------- GENERATE FULL COLLEGE LIST -------------------
+fetch(apiURL + '/edit')
+  .then(response => {
+    // Check if the response is successful (status code 200)
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    // Parse the JSON data from the response
+    return response.json();
+  })
+  .then(data => {
+    ul_id = 'api_applist'
+    generateList(data,ul_id);
+  })
+  .catch(error => {
+    // Handle any errors that occur during the fetch operation
+    console.error('There was a problem with the fetch operation:', error);
+  });
+
+//------------------- GENERATE USER'S COLLEGE LIST -------------------
+function genUserList(){
+  fetch(apiURL + '/edit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      // Add any other headers as needed
+    },
+    body: JSON.stringify(postData), // Convert the data to JSON format
+  })
+  .then(response => {
+    // Check if the response is successful (status code 200)
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    // Parse the JSON data from the response, if needed
+    return response.json();
+  })
+  .then(data => {
+    ul_id = 'user_applist'
+      generateList(data,ul_id);
+  })
+  .catch(error => {
+    // Handle any errors that occur during the fetch operation
+    console.error('There was a problem with the fetch operation:', error);
+  });
+}
+
+//------------------- UPDATE USER'S COLLEGE LIST -------------------
+function updateUser(item){
+  // Make a PUT request to the backend endpoint
+  fetch(apiURL + '/edit', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ item: item }), // Adjust as per your requirement
+  })
+  .then(response => {
+    // Check if the response is successful (status code 200)
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    // Parse the JSON data from the response, if needed
+    return response.json();
+  })
+  .then(data => {
+    // Process the response data, if needed
+    console.log('Response from server:', data);
+  })
+  .catch(error => {
+    // Handle any errors that occur during the fetch operation
+    console.error('There was a problem with the fetch operation:', error);
+  });
+}
+
+//------------------- EVENT LISTNER FOR USER LIST -------------------
+const ul = document.getElementById('api_applist');
+
+// Attach an event listener to the <ul> element
+ul.addEventListener('click', function(event) {
+    // Check if the clicked element is an <li> element
+    if (event.target.tagName === 'LI') {
+        // Get the text content of the clicked <li> element (item.name)
+        const itemName = event.target.textContent;
+
+        // Use the itemName variable as needed
+        updateUser(itemName);
+        genUserList();
+    }
+});
+*/
+
 </script>
 
 <script>
