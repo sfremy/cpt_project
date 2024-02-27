@@ -210,8 +210,8 @@ function generateList(jsonData,list-container) {
             listItem.appendChild(link);
 
             // Create image element
-            const image = document.createElement('img');
-            image.src = item.img;
+            const image = document.createElement('image');
+            image.src = item.image;
             listItem.appendChild(image);
 
             // Append list item to the container
