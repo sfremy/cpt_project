@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-const apiURL = {FILL THIS IN} // Remy: Is this meant to say "FILL THIS IN" or is it something you will fill in?
+const apiURL = 'http://127.0.0.1:8086' // Remy: Is this meant to say "FILL THIS IN" or is it something you will fill in?
 //------------------- GENERATE FULL LIST OF ANY KIND -------------------
 function generateList(jsonData,list-container) {
         const listContainer = document.getElementById(list-container);
