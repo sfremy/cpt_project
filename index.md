@@ -4,7 +4,7 @@ title: MyScout
 permalink: /myscout
 ---
 
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,9 +15,13 @@ permalink: /myscout
             background: #F0F0F0;
             margin: 0;
             padding: 20px;
+            display: flex; /* Use flexbox to organize content */
+            flex-wrap: wrap; /* Allow content to wrap to the next line */
         }
         header {
             margin-bottom: 30px;
+            width: 100%;
+            box-sizing: border-box; /* Include padding and border in width */
         }
         input[type="search"] {
             padding: 10px;
@@ -26,6 +30,10 @@ permalink: /myscout
             border-radius: 20px;
             width: 100%;
             max-width: 400px;
+        }
+        #mainContent {
+            flex-grow: 1; /* Allow main content to grow to fill remaining space */
+            margin-right: 20px;
         }
         #reviewApplications {
             text-align: center;
@@ -37,14 +45,17 @@ permalink: /myscout
         #reviewApplications ul {
             list-style: none;
             padding: 0;
+            display: flex;
+            flex-wrap: wrap; /* Allow colleges to wrap to the next line */
+            justify-content: center; /* Center the content horizontally */
         }
         #reviewApplications ul li {
-            display: inline-block;
             margin: 10px;
             padding: 10px;
             border: 2px solid #888;
             border-radius: 20px;
             transition: all 0.3s ease;
+            flex: 1 0 200px; /* Allow each college to grow to 200px width, shrink to fit */
         }
         #reviewApplications ul li:hover {
             border-color: #0056B3;
@@ -57,7 +68,7 @@ permalink: /myscout
             vertical-align: middle;
         }
         #newsSection {
-            width: 100%;
+            flex-basis: 30%; /* Set a fixed width for the news section */
             background: #fff;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -89,7 +100,7 @@ permalink: /myscout
         }
         @media (max-width: 768px) {
             #newsSection {
-                width: 100%;
+                flex-basis: 100%; /* Full width on smaller screens */
                 margin-top: 20px;
             }
         }
@@ -116,6 +127,11 @@ permalink: /myscout
   <li data-url="https://collegeadmissions.uchicago.edu/apply"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/University_of_Chicago_Coat_of_arms.png" alt="University of Chicago Logo"><span>University of Chicago</span></li>
   <li data-url="https://admissions.berkeley.edu/apply-to-berkeley/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Seal_of_University_of_California%2C_Berkeley.svg/1200px-Seal_of_University_of_California%2C_Berkeley.svg.png" alt="UC Berkeley Logo"><span>UC Berkeley</span></li>
   <li data-url="https://admission.ucla.edu/apply"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/UCLA_Bruins_primary_logo.svg/1200px-UCLA_Bruins_primary_logo.svg.png" alt="UCLA Logo"><span>UCLA</span></li>
+</ul>
+
+
+<!-- ------------------- CHANGED FULL LIST ENTRY ------------------- -->
+<ul id="api_applist">
 </ul>
 <h2>REVIEW YOUR APPLICATIONS</h2>
   </section>
