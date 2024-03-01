@@ -129,10 +129,6 @@ permalink: /myscout
   <li data-url="https://admission.ucla.edu/apply"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/UCLA_Bruins_primary_logo.svg/1200px-UCLA_Bruins_primary_logo.svg.png" alt="UCLA Logo"><span>UCLA</span></li>
 </ul>
 
-
-<!-- ------------------- CHANGED FULL LIST ENTRY ------------------- -->
-<ul id="api_applist">
-</ul>
 <h2>REVIEW YOUR APPLICATIONS</h2>
   </section>
   <aside id="newsSection">
@@ -142,6 +138,8 @@ permalink: /myscout
       <h4>News Title</h4>
       <p>News summary...</p>
     </article>
+<ul id="api_applist">
+</ul>
 
 <script>
 var list = document.getElementById("appList");
@@ -182,9 +180,7 @@ function updateNewsSection() {
 }
 // Call the function to update the news section when the page loads
 document.addEventListener('DOMContentLoaded', updateNewsSection);
-</script>
-
-<script>
+//Update college list upon search
 document.addEventListener('DOMContentLoaded', function() {
   const searchInput = document.getElementById('collegeSearch');
   const colleges = document.querySelectorAll('#reviewApplications ul li');
@@ -200,9 +196,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+</script>
 
+<script>
 import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-const apiURL = uri + 'api/users/edit'
+const apiURL = uri + 'api/user/edit'
+document.addEventListener('DOMContentLoaded', function() {
+  fetch(apiURL)
+  .then(response => {
+    // Check if the response is successful (status code 200)
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    // Parse the JSON data from the response
+    return response.json();
+  })
+  .then(data => {
+    ul_id = 'api_applist'
+    generateList(data,ul_id);
+  })
+  .catch(error => {
+    // Handle any errors that occur during the fetch operation
+    console.error('There was a problem with the fetch operation:', error);
+  });
+});
+
 //------------------- GENERATE FULL LIST OF ANY KIND -------------------
 function generateList(jsonData,list-container) {
         const listContainer = document.getElementById(list-container);
@@ -227,25 +245,6 @@ function generateList(jsonData,list-container) {
             listContainer.appendChild(listItem);
         });
     }
-
-//------------------- GENERATE FULL COLLEGE LIST -------------------
-fetch(apiURL + '/edit')
-  .then(response => {
-    // Check if the response is successful (status code 200)
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    // Parse the JSON data from the response
-    return response.json();
-  })
-  .then(data => {
-    ul_id = 'api_applist'
-    generateList(data,ul_id);
-  })
-  .catch(error => {
-    // Handle any errors that occur during the fetch operation
-    console.error('There was a problem with the fetch operation:', error);
-  });
 
 //------------------- GENERATE USER'S COLLEGE LIST -------------------
 function genUserList(){
