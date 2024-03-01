@@ -130,6 +130,10 @@ permalink: /myscout
 </ul>
 
 <h2>REVIEW YOUR APPLICATIONS</h2>
+<ul id="api_applist">
+  <li data-url="https://admission.stanford.edu/apply/"><img src="https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/block-s-right.png" alt="Stanford University Logo"><span>Stanford University</span></li>
+</ul>
+
   </section>
   <aside id="newsSection">
     <h3>Recent college news</h3>
@@ -138,8 +142,6 @@ permalink: /myscout
       <h4>News Title</h4>
       <p>News summary...</p>
     </article>
-<ul id="api_applist">
-</ul>
 
 <script>
 var list = document.getElementById("appList");
