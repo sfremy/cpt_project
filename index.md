@@ -203,122 +203,103 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
 const apiURL = uri + 'api/user/edit'
+
+//------------------- LOAD FULL LIST INTO FIRST SECTION -------------------
 document.addEventListener('DOMContentLoaded', function() {
+  
   fetch(apiURL)
-  .then(response => {
-    // Check if the response is successful (status code 200)
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    // Parse the JSON data from the response
-    return response.json();
-  })
-  .then(data => {
-    ul_id = 'api_applist'
-    generateList(data,ul_id);
-  })
-  .catch(error => {
-    // Handle any errors that occur during the fetch operation
-    console.error('There was a problem with the fetch operation:', error);
-  });
+      .then(response => response.json())
+      .then(data => {
+          // Iterate over each item in the JSON data
+          data.forEach(item => {
+              // Create an <li> element
+              var listItem = document.createElement('li');
+
+              // Create an <img> element with the image URL
+              var image = document.createElement('img');
+              image.src = item.img;
+
+              // Append the image and link to the <li> element
+              listItem.appendChild(img);
+              listItem.appendChild(link);
+
+              // Append the <li> element to the <ul> section
+              document.getElementById('appList').appendChild(listItem);
+          });
+      })
+      .catch(error => console.error('Error:', error));
 });
 
-//------------------- GENERATE FULL LIST OF ANY KIND -------------------
-function generateList(jsonData,list-container) {
-        const listContainer = document.getElementById(list-container);
+//------------------- ADD NEW SELECTIONS TO BACKEND COLLEGE_LIST -------------------
+document.addEventListener('DOMContentLoaded', function() {
+  // Function to handle selecting/unselecting an item
+  function toggleSelection(event) {
+      event.target.classList.toggle('selected');
+  }
 
-        // Iterate over each item in the JSON data
-        jsonData.forEach(item => {
-            // Create list item
-            const listItem = document.createElement('li');
+  // Function to handle button click
+  function handleButtonClick() {
+      // Get all selected items
+      var selectedItems = document.querySelectorAll('#appList.selected');
+      
+      // Extract names from selected items
+      var selectedNames = [];
+      selectedItems.forEach(item => {
+          selectedNames.push(item.querySelector('a').textContent);
+      });
 
-            // Create anchor element for the URL
-            const link = document.createElement('a');
-            link.href = item.url;
-            link.textContent = item.name;
-            listItem.appendChild(link);
+      // Make a POST request to the backend API endpoint
+      fetch(apiURL, {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ names: selectedNames })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
+      })
+      .catch(error => console.error('Error:', error));
+  }
 
-            // Create image element
-            const image = document.createElement('image');
-            image.src = item.image;
-            listItem.appendChild(image);
-
-            // Append list item to the container
-            listContainer.appendChild(listItem);
-        });
-    }
-
-//------------------- GENERATE USER'S COLLEGE LIST -------------------
-function genUserList(){
-  fetch(apiURL + '/edit', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      // Add any other headers as needed
-    },
-    body: JSON.stringify(postData), // Convert the data to JSON format
-  })
-  .then(response => {
-    // Check if the response is successful (status code 200)
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    // Parse the JSON data from the response, if needed
-    return response.json();
-  })
-  .then(data => {
-    ul_id = 'user_applist'
-      generateList(data,ul_id);
-  })
-  .catch(error => {
-    // Handle any errors that occur during the fetch operation
-    console.error('There was a problem with the fetch operation:', error);
+  // Add event listeners to make items selectable
+  var items = document.querySelectorAll('#appList li');
+  items.forEach(item => {
+      item.addEventListener('click', toggleSelection);
   });
-}
 
-//------------------- UPDATE USER'S COLLEGE LIST -------------------
-function updateUser(item){
-  // Make a PUT request to the backend endpoint
-  fetch(apiURL + '/edit', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ item: item }), // Adjust as per your requirement
-  })
-  .then(response => {
-    // Check if the response is successful (status code 200)
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    // Parse the JSON data from the response, if needed
-    return response.json();
-  })
-  .then(data => {
-    // Process the response data, if needed
-    console.log('Response from server:', data);
-  })
-  .catch(error => {
-    // Handle any errors that occur during the fetch operation
-    console.error('There was a problem with the fetch operation:', error);
-  });
-}
-
-//------------------- EVENT LISTNER FOR USER LIST -------------------
-const ul = document.getElementById('api_applist');
-
-// Attach an event listener to the <ul> element
-ul.addEventListener('click', function(event) {
-    // Check if the clicked element is an <li> element
-    if (event.target.tagName === 'LI') {
-        // Get the text content of the clicked <li> element (item.name)
-        const itemName = event.target.textContent;
-
-        // Use the itemName variable as needed
-        updateUser(itemName);
-        genUserList();
-    }
+  // Add event listener to button for handling click
+  document.getElementById('submit-button').addEventListener('click', handleButtonClick);
 });
+
+//------------------- LOAD USER'S LIST -------------------
+function updateUserList() {
+  fetch(apiURL, {
+    method: 'POST', // Specify the POST method
+    headers: {
+      'Content-Type': 'application/json' // Set the content type header if sending JSON data
+    },
+  }).then(response => response.json())
+  .then(data => {
+    const ul = document.getElementById('api_applist'); // Replace 'your-ul-id' with the ID of your <ul> element
+    data.forEach(item => {
+      const li = document.createElement('li');
+      const img = document.createElement('img');
+      img.src = item.img; // Assuming 'img' is the key for the image URL in the JSON data
+      img.alt = item.name; // Assuming 'name' is the key for the name in the JSON data
+      const a = document.createElement('a');
+      a.href = item.link; // Assuming 'link' is the key for the URL in the JSON data
+      a.textContent = item.name;
+      li.appendChild(img);
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+  })
+  .catch(error => console.error('Error:', error));
+}
+updateUserList();
+setInterval(updateUserList, 5000);
 </script>
 
 <script>
