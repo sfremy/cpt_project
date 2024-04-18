@@ -127,19 +127,11 @@ permalink: /myscout
             <p>News summary...</p>
           </article>
         </aside>
-      </section>
-      </main>
 
 <script>
-var list = document.getElementById("appList");
-  // Add click event listeners to all list items
-  var listItems = list.getElementsByTagName("li");
-  for (var i = 0; i < listItems.length; i++) {
-      listItems[i].addEventListener("click", function() {
-          var url = this.getAttribute("data-url");
-          window.location.href = url;
-      });
-  }
+const apiURL = 'http://127.0.0.1:8086/api/users/edit';
+console.log(apiURL)
+
 // Simulate fetching news data from an API
 function fetchNews() {
   // Example static news data
@@ -150,6 +142,7 @@ function fetchNews() {
   ];
   return newsData;
 }
+
 function updateNewsSection() {
   const newsData = fetchNews();
   const newsSection = document.getElementById('newsSection');
@@ -169,27 +162,34 @@ function updateNewsSection() {
 }
 // Call the function to update the news section when the page loads
 document.addEventListener('DOMContentLoaded', updateNewsSection);
-//Update college list upon search
-document.addEventListener('DOMContentLoaded', function() {
-  const searchInput = document.getElementById('collegeSearch');
-  const colleges = document.querySelectorAll('#reviewApplications ul li');
-  searchInput.addEventListener('input', function() {
-    const searchText = searchInput.value.toLowerCase();
-    colleges.forEach(college => {
-      const collegeName = college.textContent.toLowerCase();
-      if (collegeName.includes(searchText)) {
-        college.style.display = '';
-      } else {
-        college.style.display = 'none';
-      }
-    });
-  });
-});
-</script>
 
-<script>
-import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-const apiURL = uri + 'api/user/edit'
+function getFullList() {
+  // Make a GET request to the backend API endpoint
+  fetch(apiURL)
+    .then(response => response.json()) // Parse the JSON response
+    .then(data => {
+      data.forEach(item => {
+        // Create an <li> element
+        var listItem = document.createElement('li');
+
+        // Create an <img> element with the image URL
+        var image = document.createElement('img');
+        image.src = item.img;
+
+        // Append the image and link to the <li> element
+        listItem.appendChild(image);
+
+        // Append the <li> element to the <ul> section
+        document.getElementById('appList').appendChild(listItem);
+      });
+    })
+    .catch(error => console.error('Error:', error)); // Handle any errors that occur during the request
+}
+
+//Generate this list when the page loads
+document.addEventListener('DOMContentLoaded',getFullList)
+/**
+
 
 //------------------- LOAD FULL LIST INTO FIRST SECTION -------------------
 document.addEventListener('DOMContentLoaded', function() {
@@ -287,6 +287,7 @@ function updateUserList() {
 }
 updateUserList();
 setInterval(updateUserList, 5000);
+*/
 </script>
 
 <script>
