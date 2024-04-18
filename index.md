@@ -23,7 +23,7 @@ permalink: /myscout
             width: 100%;
             box-sizing: border-box; /* Include padding and border in width */
         }
-        input[type="search"] {
+        input[type="text"] {
             padding: 10px;
             font-size: 1rem;
             border: 2px solid #000;
