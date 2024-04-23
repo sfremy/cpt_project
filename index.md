@@ -284,60 +284,6 @@ function addUserColleges() {
       window.alert('Error: ' + error);
     });// Handle any errors that occur during the request
 }
-
-/**
-
-//------------------- ADD NEW SELECTIONS TO BACKEND COLLEGE_LIST -------------------
-document.addEventListener('DOMContentLoaded', function() {
-  // Function to handle selecting/unselecting an item
-  function toggleSelection(event) {
-      event.target.classList.toggle('selected');
-  }
-
-  // Function to handle button click
-  function handleButtonClick() {
-      // Get all selected items
-      var selectedItems = document.querySelectorAll('#appList.selected');
-      
-      // Extract names from selected items
-      var selectedNames = [];
-      selectedItems.forEach(item => {
-          selectedNames.push(item.querySelector('a').textContent);
-      });
-
-      // Make a PUT request to the backend API endpoint
-      fetch(apiURL, {
-          method: 'PUT',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          //Body contains selections & username
-          body: JSON.stringify({name: document.getElementById("name").value, names: selectedNames })
-      })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-        updateUserList(); //updateUserList 
-    })
-      //Handle error
-      .catch(error => {
-        console.error('Error:', error);
-        // Display error message in a popup window
-        window.alert('An error occurred while processing your request. Please try again later.');
-  });
-}
-
-  // Add event listeners to make items selectable
-  var items = document.querySelectorAll('#appList li');
-  items.forEach(item => {
-      item.addEventListener('click', toggleSelection);
-  });
-
-  // Add event listener to button for handling click
-  document.getElementById('submit-button').addEventListener('click', handleButtonClick);
-});
-
-*/
 </script>
 
 <script>
