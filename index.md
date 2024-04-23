@@ -194,6 +194,46 @@ function getFullList() {
 //Generate this list when the page loads
 document.addEventListener('DOMContentLoaded',getFullList)
 
+function updateUserList() {
+  fetch(apiURL, {
+    method: 'POST', // Make a POST request to backend
+    headers: {
+      'Content-Type': 'application/json' // Set the content type header
+    },
+    body: JSON.stringify(name: document.getElementById("name").value) //Get username
+    })
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(item => {
+        // Create an <li> element
+        var listItem = document.createElement('li');
+
+        // Create an <img> element with the image URL
+        var image = document.createElement('image');
+        image.src = item.image; // Access 'img' property from JSON
+
+        // Create a text node with the 'name' property as content
+        var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
+
+        // Create an anchor element for redirect
+        var link = document.createElement('a');
+        link.href = item.url; // Access 'url' property from JSON
+        link.appendChild(textNode); // Append the text node to the anchor
+
+        // Append the image and link to the <li> element
+        listItem.appendChild(image);
+        listItem.appendChild(textNode);
+        listItem.appendChild(link);
+
+        // Append the <li> element to the <ul> section
+        document.getElementById('api_applist').appendChild(listItem);
+      });
+    })
+    .catch(error => {
+      // Display error in a popup window
+      window.alert('Error: ' + error);
+    });// Handle any errors that occur during the request
+}
 
 /**
 function updateUserList() {
