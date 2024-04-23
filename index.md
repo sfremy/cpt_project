@@ -128,8 +128,9 @@ permalink: /myscout
           </article>
         </aside>
 
-<script>
-const apiURL = 'http://127.0.0.1:8086/api/users/edit';
+<script type="module">
+import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+const apiURL = uri + '/api/users/edit';
 console.log(apiURL)
 
 // Simulate fetching news data from an API
