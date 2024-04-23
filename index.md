@@ -173,11 +173,15 @@ function getFullList() {
         var listItem = document.createElement('li');
 
         // Create an <img> element with the image URL
-        var image = document.createElement('img');
-        image.src = item.img;
+        var image = document.createElement('image');
+        image.src = item.image; // Access 'img' property from JSON
 
-        // Append the image and link to the <li> element
+        // Create a text node with the 'name' property as content
+        var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
+
+        // Append the image and text to the <li> element
         listItem.appendChild(image);
+        listItem.appendChild(textNode);
 
         // Append the <li> element to the <ul> section
         document.getElementById('appList').appendChild(listItem);
@@ -189,6 +193,8 @@ function getFullList() {
 //Generate this list when the page loads
 document.addEventListener('DOMContentLoaded',getFullList)
 
+
+/**
 function updateUserList() {
   fetch(apiURL, {
     method: 'POST', // Specify the POST method
@@ -267,78 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('submit-button').addEventListener('click', handleButtonClick);
 });
 
-/**
-
-//------------------- ADD NEW SELECTIONS TO BACKEND COLLEGE_LIST -------------------
-document.addEventListener('DOMContentLoaded', function() {
-  // Function to handle selecting/unselecting an item
-  function toggleSelection(event) {
-      event.target.classList.toggle('selected');
-  }
-
-  // Function to handle button click
-  function handleButtonClick() {
-      // Get all selected items
-      var selectedItems = document.querySelectorAll('#appList.selected');
-      
-      // Extract names from selected items
-      var selectedNames = [];
-      selectedItems.forEach(item => {
-          selectedNames.push(item.querySelector('a').textContent);
-      });
-
-      // Make a POST request to the backend API endpoint
-      fetch(apiURL, {
-          method: 'PUT',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ names: selectedNames })
-      })
-      .then(response => response.json())
-      .then(data => {
-          console.log(data);
-      })
-      .catch(error => console.error('Error:', error));
-  }
-
-  // Add event listeners to make items selectable
-  var items = document.querySelectorAll('#appList li');
-  items.forEach(item => {
-      item.addEventListener('click', toggleSelection);
-  });
-
-  // Add event listener to button for handling click
-  document.getElementById('submit-button').addEventListener('click', handleButtonClick);
-});
-
-//------------------- LOAD USER'S LIST -------------------
-function updateUserList() {
-  fetch(apiURL, {
-    method: 'POST', // Specify the POST method
-    headers: {
-      'Content-Type': 'application/json' // Set the content type header if sending JSON data
-    },
-  }).then(response => response.json())
-  .then(data => {
-    const ul = document.getElementById('api_applist'); // Replace 'your-ul-id' with the ID of your <ul> element
-    data.forEach(item => {
-      const li = document.createElement('li');
-      const img = document.createElement('img');
-      img.src = item.img; // Assuming 'img' is the key for the image URL in the JSON data
-      img.alt = item.name; // Assuming 'name' is the key for the name in the JSON data
-      const a = document.createElement('a');
-      a.href = item.link; // Assuming 'link' is the key for the URL in the JSON data
-      a.textContent = item.name;
-      li.appendChild(img);
-      li.appendChild(a);
-      ul.appendChild(li);
-    });
-  })
-  .catch(error => console.error('Error:', error));
-}
-updateUserList();
-setInterval(updateUserList, 5000);
 */
 </script>
 
