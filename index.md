@@ -235,34 +235,57 @@ function updateUserList() {
     });// Handle any errors that occur during the request
 }
 
-/**
-function updateUserList() {
-  fetch(apiURL, {
-    method: 'POST', // Specify the POST method
-    headers: {
-      'Content-Type': 'application/json' // Set the content type header if sending JSON data
-    },
-    body: JSON.stringify(name: document.getElementById("name").value)
-  }).then(response => response.json())
-  .then(data => {
-    const ul = document.getElementById('applist'); 
-    data.forEach(item => {
-      const li = document.createElement('li');
-      const img = document.createElement('img');
-      img.src = item.img; // Assuming 'img' is the key for the image URL in the JSON data
-      img.alt = item.name; // Assuming 'name' is the key for the name in the JSON data
-      const a = document.createElement('a');
-      a.href = item.link; // Assuming 'link' is the key for the URL in the JSON data
-      a.textContent = item.name;
-      li.appendChild(img);
-      li.appendChild(a);
-      ul.appendChild(li);
+//Make appList selectable
+document.addEventListener('DOMContentLoaded', () => {
+  // Add event listener to each list item
+  document.querySelectorAll('#appList > li').forEach(item => {
+    item.addEventListener('click', () => {
+      // Toggle the 'selected' class when clicked
+      item.classList.toggle('selected');
     });
-  })
-  .catch(error => console.error('Error:', error));
+  });
+});
+
+// Function to retrieve selected items
+function getSelectedItems() {
+  return document.querySelectorAll('#appList > li.selected');
 }
-updateUserList();
-setInterval(updateUserList, 5000);
+
+function addUserColleges() {
+  // Get all selected items
+  var selectedItems = getSelectedItems();
+  
+  // Extract names from selected items
+  var selectedNames = [];
+  selectedItems.forEach(item => {
+      // Find the text node within the list item
+      var textNode = item.childNodes[1]; // Assuming the text node is the second child
+      selectedNames.push(textNode.textContent);
+  });
+
+  // Make a PUT request to the backend API endpoint
+  fetch(apiURL, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      //Body contains selections & username
+      body: JSON.stringify({
+        name: document.getElementById("name").value, 
+        names: selectedNames
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+      updateUserList(); //updateUserList 
+    })
+    .catch(error => {
+      // Display error in a popup window
+      window.alert('Error: ' + error);
+    });// Handle any errors that occur during the request
+}
+
+/**
 
 //------------------- ADD NEW SELECTIONS TO BACKEND COLLEGE_LIST -------------------
 document.addEventListener('DOMContentLoaded', function() {
