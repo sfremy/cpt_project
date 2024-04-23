@@ -1,9 +1,10 @@
 ---
 layout: page
-title: About Me
+title: About Us
 permalink: /about/
 ---
 
-A Fastpages clone, for CSA - Tirth Thakkar & Haseeb Beg
+# Welcome to CollegeApp Scout!
+- You can use this website to create a list of colleges that you want to apply to in order to stay organized and track all your applications in one place. We also have an AI chatbot to answer any of your application questions!
 
 

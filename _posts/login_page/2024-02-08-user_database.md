@@ -68,6 +68,7 @@ permalink: /data/database
       <th>ID</th>
       <th>Age</th>
       <th>Email</th>
+      <th>Colleges</th>
     </tr>
   </thead>
   <tbody id="result">
@@ -76,14 +77,14 @@ permalink: /data/database
 </table>
 
 <div>
-  <button onclick='window.location.href = "{{site.baseurl}}/lmc-editUser"'>Edit User</button>
+  <button onclick='window.location.href = "{{site.baseurl}}/editUser"'>Edit User</button>
 </div>
 
 <div>
-  <button onclick='window.location.href = "{{site.baseurl}}/lmc-deleteUser"'>Delete User</button>
+  <button onclick='window.location.href = "{{site.baseurl}}/deleteUser"'>Delete User</button>
 </div>
 
-<p><a href="{{site.baseurl}}/login-redirect">Return to home page</a></p>
+<p><a href="{{site.baseurl}}/home-page">Return to home page</a></p>
 
 <!-- 
 Below JavaScript code fetches user data from an API and displays it in a table. It uses the Fetch API to make a GET request to the '/api/users/' endpoint.   Refer to config.js to see additional options. 
@@ -106,7 +107,7 @@ Below JavaScript code fetches user data from an API and displays it in a table. 
       if (response.status !== 200) {
         if (response.status === 401) {
           // Unauthorized - Redirect to 401 error page
-          window.location.href = "/lmc-frontend/lmc-login";
+          window.location.href = "{{site.baseurl}}/login_layout";
         } else if (response.status === 403) {
           // Forbidden - Redirect to 403 error page
           alert(response.status + " error. Redirecting you to the login")
@@ -117,7 +118,7 @@ Below JavaScript code fetches user data from an API and displays it in a table. 
           td.innerHTML = errorMsg;
           tr.appendChild(td);
           resultContainer.appendChild(tr);
-          window.location.href = "/lmc-frontend/lmc-login";
+          window.location.href = "{{site.baseurl}}/login_layout";
           return;
         }
       }
@@ -131,16 +132,19 @@ Below JavaScript code fetches user data from an API and displays it in a table. 
           const id = document.createElement("td");
           const age = document.createElement("td");
           const email = document.createElement("td");
+          const college_list = document.createElement("td");
           // data is specific to the API
           name.innerHTML = row.name;
           id.innerHTML = row.uid;
           age.innerHTML = row.age;
           email.innerHTML = row.email;
+          college_list.innerHTML = row.college_list;
           // this builds td's into tr
           tr.appendChild(name);
           tr.appendChild(id);
           tr.appendChild(age);
           tr.appendChild(email);
+          tr.appendChild(college_list);
           // append the row to table
           resultContainer.appendChild(tr);
         }

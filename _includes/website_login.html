@@ -163,6 +163,7 @@ The form triggers the login_user function defined in the JavaScript below when t
                     }
                     // Redirect to the database page
                     alert("Successfully logged in! You will be redirected to MyScout.")
+                    console.log(body);
                     window.location.href = "{{site.baseurl}}/myscout";
                 })
                 // catch fetch errors (ie ACCESS to server blocked)
