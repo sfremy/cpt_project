@@ -200,7 +200,7 @@ function updateUserList() {
     headers: {
       'Content-Type': 'application/json' // Set the content type header
     },
-    body: JSON.stringify(name: document.getElementById("name").value) //Get username
+    body: JSON.stringify({name: document.getElementById("name").value}) //Get username
     })
     .then(response => response.json())
     .then(data => {
