@@ -119,6 +119,7 @@ permalink: /myscout
         <!-- 大学列表 -->
         <ul id="appList">
         </ul>
+        <button onclick="addUserColleges()">Submit Selections</button>
         <aside id="newsSection">
           <h3>Recent college news</h3>
           <!-- 新闻摘要 -->
