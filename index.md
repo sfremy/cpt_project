@@ -117,6 +117,7 @@ permalink: /myscout
         </ul>
         <h2>FIND COLLEGES</h2>
         <!-- 大学列表 -->
+        <a href='{{site.baseurl}}/delete_colleges'>Click here to delete colleges</a><br><br>
         <ul id="appList">
         </ul>
         <button onclick="addUserColleges()">Submit Selections</button>
@@ -285,7 +286,6 @@ function addUserColleges() {
       window.alert('Error: ' + error);
     });// Handle any errors that occur during the request
 }
-</script>
 
 <script>
 window.embeddedChatbotConfig = {
