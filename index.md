@@ -272,8 +272,8 @@ function addUserColleges() {
       },
       //Body contains selections & username
       body: JSON.stringify({
-        name: document.getElementById("name").value, 
-        names: selectedNames
+        id: document.getElementById("name").value, 
+        college_list: selectedNames
         })
     })
     .then(response => response.json())
