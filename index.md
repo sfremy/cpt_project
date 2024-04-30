@@ -117,10 +117,11 @@ permalink: /myscout
         </ul>
         <h2>FIND COLLEGES</h2>
         <!-- 大学列表 -->
-        <a href='{{site.baseurl}}/delete_colleges'>Click here to delete colleges</a><br><br>
         <ul id="appList">
         </ul>
-        <button onclick="addUserColleges()">Submit Selections</button>
+        <button onclick="addUserColleges()">Submit Selections</button><br><br><br><br>
+        <a href='{{site.baseurl}}/predictor'>Click here to predict your admission decision!</a><br><br>
+        <a href='{{site.baseurl}}/delete_colleges'>Click here to delete colleges</a><br><br>
         <aside id="newsSection">
           <h3>Recent college news</h3>
           <!-- 新闻摘要 -->

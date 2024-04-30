@@ -76,14 +76,6 @@ permalink: /data/database
   </tbody>
 </table>
 
-<div>
-  <button onclick='window.location.href = "{{site.baseurl}}/editUser"'>Edit User</button>
-</div>
-
-<div>
-  <button onclick='window.location.href = "{{site.baseurl}}/deleteUser"'>Delete User</button>
-</div>
-
 <p><a href="{{site.baseurl}}/home-page">Return to home page</a></p>
 
 <!-- 

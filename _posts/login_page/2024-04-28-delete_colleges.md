@@ -1,7 +1,7 @@
 ---
 toc: true
 layout: post
-title: Delete Colleges
+title: Delete colleges from your list here!
 type: hacks
 permalink: /delete_colleges
 ---
@@ -10,7 +10,6 @@ permalink: /delete_colleges
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete colleges from your list here!</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,43 +68,44 @@ permalink: /delete_colleges
     <div id="message" class="message" style="display: none;"></div>
     <div id="error" class="error-message" style="display: none;"></div>
 
-<script>
+<script type="module">
 
 import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
 const apiURL = uri + '/api/users/edit';
 
     document.getElementById('deleteCollegesForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const name = document.getElementById('name').value;
-        const colleges = document.getElementById('colleges').value.split(',').map(college => college.trim());
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const names = document.getElementById('names').value.split(',').map(names => names.trim()); // Changed from 'colleges' to 'names'
 
-        fetch(apiURL, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: name,
-                college_list: colleges
-            }),
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById('message').innerText = data.message;
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('error').style.display = 'none';
-        })
-        .catch(error => {
-            document.getElementById('error').innerText = 'An error occurred: ' + error.message;
-            document.getElementById('error').style.display = 'block';
-            document.getElementById('message').style.display = 'none';
-        });
+    fetch(apiURL, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: name,
+            names: names, // Changed variable name to 'names'
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById('message').innerText = data.message;
+        document.getElementById('message').style.display = 'block';
+        document.getElementById('error').style.display = 'none';
+    })
+    .catch(error => {
+        document.getElementById('error').innerText = 'An error occurred: ' + error.message;
+        document.getElementById('error').style.display = 'block';
+        document.getElementById('message').style.display = 'none';
     });
+});
+
 </script>
 </body>
 </html>
