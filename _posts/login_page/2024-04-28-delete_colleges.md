@@ -46,12 +46,20 @@ permalink: /delete_colleges
             background-color: #d32f2f;
         }
         .message {
-            margin-top: 10px;
-            color: green;
+            margin-top: 20px;
+            padding: 10px;
+            color: white;
+            background-color: #4CAF50; /* Green */
+            border-radius: 5px;
+            font-size: 18px;
         }
         .error-message {
-            margin-top: 10px;
-            color: red;
+            margin-top: 20px;
+            padding: 10px;
+            color: white;
+            background-color: #FF0000; /* Red */
+            border-radius: 5px;
+            font-size: 18px;
         }
     </style>
 
@@ -88,15 +96,25 @@ const apiURL = uri + '/api/users/edit';
             names: names, // Changed variable name to 'names'
         }),
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        document.getElementById('message').innerText = data.message;
-        document.getElementById('message').style.display = 'block';
+        const messageElement = document.getElementById('message');
+        messageElement.innerText = data.message;
+        messageElement.style.display = 'block';
+
+        // Display original college list, colleges selected to delete, and resulting college list
+        const originalListElement = document.createElement('div');
+        originalListElement.innerText = `Original College List: ${data.original_college_list.join(', ')}`;
+        messageElement.appendChild(originalListElement);
+
+        const deletedListElement = document.createElement('div');
+        deletedListElement.innerText = `Colleges Deleted: ${data.colleges_to_delete.join(', ')}`;
+        messageElement.appendChild(deletedListElement);
+
+        const resultingListElement = document.createElement('div');
+        resultingListElement.innerText = `Resulting College List: ${data.resulting_college_list.join(', ')}`;
+        messageElement.appendChild(resultingListElement);
+
         document.getElementById('error').style.display = 'none';
     })
     .catch(error => {

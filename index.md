@@ -110,7 +110,7 @@ permalink: /myscout
 <body>
     <main>
       <section id="reviewApplications">
-        <h3>Your Username<h3>
+        <h3>Your Username</h3>
         <input type="text" placeholder="Enter your username" id="name">
         <h2>REVIEW YOUR APPLICATIONS</h2>
         <ul id="api_applist">
@@ -132,11 +132,11 @@ permalink: /myscout
         </aside>
 
 <script type="module">
-import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-const apiURL = uri + '/api/users/edit';
-console.log(apiURL)
+// import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+// const apiURL = uri + '/api/users/edit';
+// console.log(apiURL)
 
-// Simulate fetching news data from an API
+// COLLABORATIVE CODE - Simulate fetching news data from an API
 function fetchNews() {
   // Example static news data
   const newsData = [
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', updateNewsSection);
 
 function getFullList() {
   // Make a GET request to the backend API endpoint
-  fetch(apiURL)
+  fetch('http://127.0.0.1:8086/api/users/edit')
     .then(response => response.json()) // Parse the JSON response
     .then(data => {
       data.forEach(item => {
@@ -198,7 +198,7 @@ function getFullList() {
 document.addEventListener('DOMContentLoaded',getFullList)
 
 function updateUserList() {
-  fetch(apiURL, {
+  fetch('http://127.0.0.1:8086/api/users/edit', {
     method: 'POST', // Make a POST request to backend
     headers: {
       'Content-Type': 'application/json' // Set the content type header
@@ -267,7 +267,7 @@ function addUserColleges() {
   });
 
   // Make a PUT request to the backend API endpoint
-  fetch(apiURL, {
+  fetch('http://127.0.0.1:8086/api/users/edit', {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json'
@@ -287,6 +287,7 @@ function addUserColleges() {
       window.alert('Error: ' + error);
     });// Handle any errors that occur during the request
 }
+</script>
 
 <script>
 window.embeddedChatbotConfig = {

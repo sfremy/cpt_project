@@ -91,6 +91,7 @@ permalink: /predictor
         }
     </style>
 </head>
+
 <body>
 <center>
 <h1>Admission Predictor</h1>
@@ -112,6 +113,7 @@ permalink: /predictor
 <button class="btn" id="checkCompatibility">Check</button>
 </div>
 </center>
+
 <script>
 function makePrediction() {
     var gpa = document.getElementById("gpa").value;
