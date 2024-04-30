@@ -84,7 +84,7 @@ const apiURL = uri + '/api/users/edit';
     document.getElementById('deleteCollegesForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const name = document.getElementById('name').value;
-    const names = document.getElementById('names').value.split(',').map(names => names.trim()); // Changed from 'colleges' to 'names'
+    const names = document.getElementById('names').value.split(',').map(names => names.trim());
 
     fetch(apiURL, {
         method: 'DELETE',
@@ -93,7 +93,7 @@ const apiURL = uri + '/api/users/edit';
         },
         body: JSON.stringify({
             name: name,
-            names: names, // Changed variable name to 'names'
+            names: names,
         }),
     })
     .then(response => response.json())
@@ -102,7 +102,6 @@ const apiURL = uri + '/api/users/edit';
         messageElement.innerText = data.message;
         messageElement.style.display = 'block';
 
-        // Display original college list, colleges selected to delete, and resulting college list
         const originalListElement = document.createElement('div');
         originalListElement.innerText = `Original College List: ${data.original_college_list.join(', ')}`;
         messageElement.appendChild(originalListElement);
