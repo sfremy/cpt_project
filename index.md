@@ -108,28 +108,6 @@ permalink: /myscout
     </style>
 </head>
 
-<body>
-    <main>
-      <section id="reviewApplications">
-        <h3>Your Username</h3>
-        <input type="text" placeholder="Enter your username" id="name">
-        <h2>REVIEW YOUR APPLICATIONS</h2>
-        <ul id="api_applist">
-        </ul>
-        <h2>FIND COLLEGES</h2>
-        <ul id="appList">
-        </ul>
-        <button onclick="addUserColleges()">Submit Selections</button><br><br><br><br>
-        <a href='{{site.baseurl}}/predictor'>Click here to predict your admission decision!</a><br><br>
-        <a href='{{site.baseurl}}/delete_colleges'>Click here to delete colleges</a><br><br>
-        <aside id="newsSection">
-          <h3>Recent college news</h3>
-          <article>
-            <h4>News Title</h4>
-            <p>News summary...</p>
-          </article>
-        </aside>
-
 <script type="module">
 
 // COLLABORATIVE CODE - Simulate fetching news data from an API
@@ -187,6 +165,11 @@ function getFullList() {
 
         // Append the <li> element to the <ul> section
         document.getElementById('appList').appendChild(listItem);
+
+        listItem.addEventListener('click', function() {
+          // Toggle the 'selected' class when clicked
+          listItem.classList.toggle('selected');
+        });
       });
     })
     .catch(error => console.error('Error:', error)); // Handle any errors that occur during the request
@@ -197,51 +180,49 @@ document.addEventListener('DOMContentLoaded',getFullList);
 
 // Written by group member
 function updateUserList() {
-  // Fetching edit endpoint
-  fetch('http://127.0.0.1:8086/api/users/edit', {
-    method: 'POST', // Make a POST request to backend
-    headers: {
-      'Content-Type': 'application/json' // Set the content type header
-    },
-    body: JSON.stringify({name: document.getElementById("name").value}) //Get username
+    // Clear the extant list
+    document.getElementById('api_applist').innerHTML = '';
+
+    // Fetching edit endpoint
+    fetch('http://127.0.0.1:8086/api/users/edit', {
+        method: 'POST', // Make a POST request to backend
+        headers: {
+            'Content-Type': 'application/json' // Set the content type header
+        },
+        body: JSON.stringify({ name: document.getElementById("name").value }) // Get username
     })
-    .then(response => response.json())
-    .then(data => {
-      data.forEach(item => {
-        // Create an <li> element
-        var listItem = document.createElement('li');
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(item => {
+                // Create an <li> element
+                var listItem = document.createElement('li');
 
-        // Create an <img> element with the image URL
-        var image = document.createElement('img');
-        image.src = item.image; // Access 'img' property from JSON
+                // Create an <img> element with the image URL
+                var image = document.createElement('img');
+                image.src = item.image; // Access 'img' property from JSON
 
-        // Create a text node with the 'name' property as content
-        var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
+                // Create a text node with the 'name' property as content
+                var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
 
-        // Create an anchor element for redirect
-        var link = document.createElement('a');
-        link.href = item.url; // Access 'url' property from JSON
-        link.appendChild(textNode); // Append the text node to the anchor
+                // Create an anchor element for redirect
+                var link = document.createElement('a');
+                link.href = item.url; // Access 'url' property from JSON
+                link.appendChild(textNode); // Append the text node to the anchor
 
-        // Append the image and link to the <li> element
-        listItem.appendChild(image);
-        listItem.appendChild(textNode);
-        listItem.appendChild(link);
+                // Append the image and link to the <li> element
+                listItem.appendChild(image);
+                listItem.appendChild(textNode);
+                listItem.appendChild(link);
 
-        // Append the <li> element to the <ul> section
-        document.getElementById('api_applist').appendChild(listItem);
-      });
-    })
-    .catch(error => {
-      // Display error in a popup window
-      window.alert('Error: ' + error);
-    });// Handle any errors that occur during the request
+                // Append the <li> element to the <ul> section
+                document.getElementById('api_applist').appendChild(listItem);
+            });
+        })
+        .catch(error => {
+            // Display error in a popup window
+            window.alert('Error: ' + error);
+        }); // Handle any errors that occur during the request
 }
-
-//Make appList selectable
-document.querySelectorAll('#appList > li').forEach(item => {
-  item.addEventListener('click', () => item.classList.toggle('selected'));
-});
 
 // Function to retrieve selected items
 function getSelectedItems() {
@@ -282,7 +263,31 @@ function addUserColleges() {
       window.alert('Error: ' + error);
     });// Handle any errors that occur during the request
 }
+
+document.getElementById("submit").onclick = addUserColleges;
 </script>
+
+<body>
+    <main>
+      <section id="reviewApplications">
+        <h3>Your Username</h3>
+        <input type="text" placeholder="Enter your username" id="name">
+        <h2>REVIEW YOUR APPLICATIONS</h2>
+        <ul id="api_applist">
+        </ul>
+        <h2>FIND COLLEGES</h2>
+        <ul id="appList">
+        </ul>
+        <button id="submit">Submit Selections</button><br><br><br><br>
+        <a href='{{site.baseurl}}/predictor'>Click here to predict your admission decision!</a><br><br>
+        <a href='{{site.baseurl}}/delete_colleges'>Click here to delete colleges</a><br><br>
+        <aside id="newsSection">
+          <h3>Recent college news</h3>
+          <article>
+            <h4>News Title</h4>
+            <p>News summary...</p>
+          </article>
+        </aside>
 
 <!-- Collaborative code for AI chatbot integration -->
 <script>
