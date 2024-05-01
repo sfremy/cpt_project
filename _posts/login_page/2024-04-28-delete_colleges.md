@@ -6,6 +6,8 @@ type: hacks
 permalink: /delete_colleges
 ---
 
+<!-- All code was written by me -->
+<!-- ChatGPT was used for some CSS elements and CSS debugging -->
 <html>
 <head>
     <meta charset="UTF-8">
@@ -65,6 +67,7 @@ permalink: /delete_colleges
 
 </head>
 <body>
+    <!-- Simple HTML form -->
     <h2>Delete colleges from your list here!</h2>
     <form id="deleteCollegesForm">
         <label for="name">Username:</label>
@@ -78,44 +81,54 @@ permalink: /delete_colleges
 
 <script type="module">
 
+// Importing API root url from config.js
 import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
 const apiURL = uri + '/api/users/edit';
 
+    // Handling user input and assigning variables
     document.getElementById('deleteCollegesForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const name = document.getElementById('name').value;
+    // Taking care of whitespaces in user input
     const names = document.getElementById('names').value.split(',').map(names => names.trim());
 
+    // Fetching edit endpoint -> using DELETE method
     fetch(apiURL, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
         },
+        // Using JSON to interpret Python lists from backend
         body: JSON.stringify({
             name: name,
             names: names,
         }),
     })
+    // Handling response
     .then(response => response.json())
     .then(data => {
         const messageElement = document.getElementById('message');
         messageElement.innerText = data.message;
         messageElement.style.display = 'block';
 
+        // Visible output on website - this prints original college list
         const originalListElement = document.createElement('div');
         originalListElement.innerText = `Original College List: ${data.original_college_list.join(', ')}`;
         messageElement.appendChild(originalListElement);
 
+        // This prints colleges selected for deletion
         const deletedListElement = document.createElement('div');
         deletedListElement.innerText = `Colleges Deleted: ${data.colleges_to_delete.join(', ')}`;
         messageElement.appendChild(deletedListElement);
 
+        // This prints resulting college list after deletion is complete
         const resultingListElement = document.createElement('div');
         resultingListElement.innerText = `Resulting College List: ${data.resulting_college_list.join(', ')}`;
         messageElement.appendChild(resultingListElement);
 
         document.getElementById('error').style.display = 'none';
     })
+    // Simple error handling
     .catch(error => {
         document.getElementById('error').innerText = 'An error occurred: ' + error.message;
         document.getElementById('error').style.display = 'block';

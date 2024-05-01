@@ -143,6 +143,7 @@ function fetchNews() {
   return newsData;
 }
 
+// Written by group member
 function updateNewsSection() {
   const newsData = fetchNews();
   const newsSection = document.getElementById('newsSection');
@@ -163,6 +164,7 @@ function updateNewsSection() {
 // Call the function to update the news section when the page loads
 document.addEventListener('DOMContentLoaded', updateNewsSection);
 
+// Written by group member
 function getFullList() {
   // Fetching edit endpoint
   fetch('http://127.0.0.1:8086/api/users/edit')
@@ -193,6 +195,7 @@ function getFullList() {
 //Generate this list when the page loads
 document.addEventListener('DOMContentLoaded',getFullList)
 
+// Written by group member
 function updateUserList() {
   // Fetching edit endpoint
   fetch('http://127.0.0.1:8086/api/users/edit', {
@@ -251,6 +254,7 @@ function getSelectedItems() {
   return document.querySelectorAll('#appList > li.selected');
 }
 
+// Written collaboratively
 function addUserColleges() {
   // Get all selected items
   var selectedItems = getSelectedItems();
@@ -286,6 +290,7 @@ function addUserColleges() {
 }
 </script>
 
+<!-- Collaborative code for AI chatbot integration -->
 <script>
 window.embeddedChatbotConfig = {
 chatbotId: "i0qi9UFe_VVLBFzSJ5_35",

@@ -1,4 +1,4 @@
-export var uri;
+export var uri; // Defining root url under variable 'uri'
 if (location.hostname === "localhost") {
         uri = "http://localhost:8086";
 } else if (location.hostname === "127.0.0.1") {
