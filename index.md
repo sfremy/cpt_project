@@ -175,7 +175,7 @@ function getFullList() {
         var listItem = document.createElement('li');
 
         // Create an <img> element with the image URL
-        var image = document.createElement('image');
+        var image = document.createElement('img');
         image.src = item.image; // Access 'img' property from JSON
 
         // Create a text node with the 'name' property as content
