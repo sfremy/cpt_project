@@ -212,7 +212,7 @@ function updateUserList() {
         var listItem = document.createElement('li');
 
         // Create an <img> element with the image URL
-        var image = document.createElement('image');
+        var image = document.createElement('img');
         image.src = item.image; // Access 'img' property from JSON
 
         // Create a text node with the 'name' property as content
@@ -239,13 +239,10 @@ function updateUserList() {
 }
 
 //Make appList selectable
-document.addEventListener('DOMContentLoaded', () => {
-  // Add event listener to each list item
-  document.querySelectorAll('#appList > li').forEach(item => {
-    item.addEventListener('click', () => {
-      // Toggle the 'selected' class when clicked
-      item.classList.toggle('selected');
-    });
+document.querySelectorAll('#appList > li').forEach(item => {
+  item.addEventListener('click', () => {
+    // Toggle the 'selected' class when clicked
+    item.classList.toggle('selected');
   });
 });
 
