@@ -21,7 +21,7 @@ permalink: /myscout
         header {
             margin-bottom: 30px;
             width: 100%;
-            box-sizing: border-box; /* Include padding and border in width */
+            box-sizing: border-box;
         }
         input[type="text"] {
             padding: 10px;
