@@ -10,6 +10,7 @@ permalink: /myscout
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>College Application Portal</title>
     <style>
+      /* ChatGPT assistance was used for some CSS syntax and elements */
         body {
             font-family: 'Arial', sans-serif;
             background: #F0F0F0;
@@ -116,7 +117,6 @@ permalink: /myscout
         <ul id="api_applist">
         </ul>
         <h2>FIND COLLEGES</h2>
-        <!-- 大学列表 -->
         <ul id="appList">
         </ul>
         <button onclick="addUserColleges()">Submit Selections</button><br><br><br><br>
@@ -124,7 +124,6 @@ permalink: /myscout
         <a href='{{site.baseurl}}/delete_colleges'>Click here to delete colleges</a><br><br>
         <aside id="newsSection">
           <h3>Recent college news</h3>
-          <!-- 新闻摘要 -->
           <article>
             <h4>News Title</h4>
             <p>News summary...</p>
@@ -132,9 +131,6 @@ permalink: /myscout
         </aside>
 
 <script type="module">
-// import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
-// const apiURL = uri + '/api/users/edit';
-// console.log(apiURL)
 
 // COLLABORATIVE CODE - Simulate fetching news data from an API
 function fetchNews() {
@@ -168,7 +164,7 @@ function updateNewsSection() {
 document.addEventListener('DOMContentLoaded', updateNewsSection);
 
 function getFullList() {
-  // Make a GET request to the backend API endpoint
+  // Fetching edit endpoint
   fetch('http://127.0.0.1:8086/api/users/edit')
     .then(response => response.json()) // Parse the JSON response
     .then(data => {
@@ -198,6 +194,7 @@ function getFullList() {
 document.addEventListener('DOMContentLoaded',getFullList)
 
 function updateUserList() {
+  // Fetching edit endpoint
   fetch('http://127.0.0.1:8086/api/users/edit', {
     method: 'POST', // Make a POST request to backend
     headers: {

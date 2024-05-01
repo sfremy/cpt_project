@@ -1,8 +1,9 @@
 <html>
+<!-- ChatGPT was used for some CSS elements and CSS debugging -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css"> <!-- Include the compiled CSS file -->
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -106,7 +107,7 @@
             // Set authenticate endpoint
             const url = uri + '/api/users/authenticate';
 
-            // Set the body of the request to include login data from the DOM
+            // Set the body of the request to include login data from DOM
             const body = {
                 uid: document.getElementById("uid").value,
                 password: document.getElementById("password").value,
@@ -143,12 +144,12 @@
                         }
                         return;
                     }
-                    // Redirect to the database page
+                    // Redirect to MyScout
                     alert("Successfully logged in! You will be redirected to MyScout.")
                     console.log(body);
                     window.location.href = "{{site.baseurl}}/myscout";
                 })
-                // catch fetch errors (ie ACCESS to server blocked)
+                // Error if server access is blocked
                 .catch(err => {
                     console.error(err);
                 });
