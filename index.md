@@ -193,7 +193,7 @@ function getFullList() {
 }
 
 //Generate this list when the page loads
-document.addEventListener('DOMContentLoaded',getFullList)
+document.addEventListener('DOMContentLoaded',getFullList);
 
 // Written by group member
 function updateUserList() {
@@ -240,10 +240,7 @@ function updateUserList() {
 
 //Make appList selectable
 document.querySelectorAll('#appList > li').forEach(item => {
-  item.addEventListener('click', () => {
-    // Toggle the 'selected' class when clicked
-    item.classList.toggle('selected');
-  });
+  item.addEventListener('click', () => item.classList.toggle('selected'));
 });
 
 // Function to retrieve selected items
