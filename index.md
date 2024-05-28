@@ -139,7 +139,7 @@ permalink: /myscout
         <input type="text" placeholder="Weight" id="safety_weight">
         <input type="text" placeholder="Graduation rate" id="grad">
         <input type="text" placeholder="Weight" id="grad_weight">
-        <button id="params">Submit Parametesr</button>
+        <button id="params">Submit Parameters</button>
         <ul id="matched_list">
         </ul>
         <br>
@@ -347,6 +347,43 @@ permalink: /myscout
       window.alert('Error: ' + error);
     });
   }
+  function reportRankings() {
+    // Gather inputs
+    const inputs = [
+      { key: '_tuition', value: parseFloat(document.getElementById('tuition').value), weight: parseFloat(document.getElementById('tuition_weight').value) },
+      { key: '_studentCount', value: parseFloat(document.getElementById('num').value), weight: parseFloat(document.getElementById('num_weight').value) },
+      { key: '_studentFaculty', value: parseFloat(document.getElementById('ratio').value), weight: parseFloat(document.getElementById('ratio_weight').value) },
+      { key: '_safetyScore', value: parseFloat(document.getElementById('safety').value), weight: parseFloat(document.getElementById('safety_weight').value) },
+      { key: '_graduationrate', value: parseFloat(document.getElementById('grad').value), weight: parseFloat(document.getElementById('grad_weight').value) }
+    ];
+    // Construct JSON object
+    let jsonData = {};
+    inputs.forEach(input => {
+      if (!isNaN(input.value)) { // Check if the value is a valid number
+        jsonData[input.key] = [input.value, input.weight];
+      }
+    });
+    // Make sure there is data to send
+    if (Object.keys(jsonData).length > 0) {
+      // Send data via fetch
+      fetch('http://127.0.0.1:8086/api/users/prediction', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    } else {
+      alert('Please fill in at least one input field.');
+    }
+  }
   document.getElementById('searchInput').addEventListener('input', function() {
       var filter = this.value.toLowerCase();
       var items = document.querySelectorAll('#appList li');
@@ -429,6 +466,7 @@ function getRandomColor() {
     return color;
 }
 document.getElementById("checkCompatibility").addEventListener("click", makePrediction);
+document.getElementById("params").onclick = makePrediction;
 </script>
 <!-- Collaborative code for AI chatbot integration -->
 <script>
