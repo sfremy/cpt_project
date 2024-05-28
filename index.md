@@ -123,7 +123,6 @@ permalink: /myscout
         <button id="delete">Delete Selections</button>
         <br>
         <h2>FIND COLLEGES</h2>
-        <input type="text" placeholder="Search for items..." id="searchInput">
         <ul id="appList">
         </ul>
         <button id="submit">Submit Selections</button>
@@ -207,7 +206,7 @@ permalink: /myscout
   // Written by group member
   function getFullList() {
     // Fetching edit endpoint
-    fetch('http://127.0.0.1:8086/api/users/edit')
+    fetch('http://127.0.0.1:8086/api/users2/edit')
       .then(response => response.json()) // Parse the JSON response
       .then(data => {
         data.forEach(item => {
@@ -238,7 +237,7 @@ permalink: /myscout
     // Clear the extant list
     document.getElementById('api_applist').innerHTML = '';
     // Fetching edit endpoint
-    fetch('http://127.0.0.1:8086/api/users/edit', {
+    fetch('http://127.0.0.1:8086/api/users2/edit', {
         method: 'POST', // Make a POST request to backend
         headers: {
             'Content-Type': 'application/json' // Set the content type header
@@ -291,7 +290,7 @@ permalink: /myscout
         selectedNames.push(textNode.textContent);
     });
     // Make a PUT request to the backend API endpoint
-    fetch('http://127.0.0.1:8086/api/users/edit', {
+    fetch('http://127.0.0.1:8086/api/users2/edit', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -327,7 +326,7 @@ permalink: /myscout
             }
         }
     });
-    fetch('http://127.0.0.1:8086/api/users/edit', {
+    fetch('http://127.0.0.1:8086/api/users2/edit', {
       method: 'DELETE',
       headers: {
           'Content-Type': 'application/json'
@@ -366,8 +365,8 @@ permalink: /myscout
     // Make sure there is data to send
     if (Object.keys(jsonData).length > 0) {
       // Send data via fetch
-      fetch('http://127.0.0.1:8086/api/users/prediction', {
-        method: 'GET',
+      fetch('http://127.0.0.1:8086/api/users2/prediction', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -375,7 +374,25 @@ permalink: /myscout
       })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data);
+        const entries = Object.entries(data);
+        // Sort the array by the values
+        entries.sort((a, b) => a[1] - b[1]);
+        // Get the <ul> element where the list items will be appended
+        const ulElement = document.getElementById('matched_list');
+        // Clear any existing list items
+        ulElement.innerHTML = '';
+        // Iterate over the sorted array and create <li> elements
+        entries.forEach(entry => {
+          const [name, value] = entry;
+          // Create an <li> element
+          const listItem = document.createElement('li');
+          // Create a text node with the 'name' property as content
+          const textNode = document.createTextNode(`${name}: ${(100/value).toFixed(2)}% Match`);
+          // Append the text to the <li> element
+          listItem.appendChild(textNode);
+          // Append the <li> element to the <ul> section
+          ulElement.appendChild(listItem);
+        });
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -384,100 +401,89 @@ permalink: /myscout
       alert('Please fill in at least one input field.');
     }
   }
-  document.getElementById('searchInput').addEventListener('input', function() {
-      var filter = this.value.toLowerCase();
-      var items = document.querySelectorAll('#appList li');
-      items.forEach(function(item) {
-          if (item.textContent.toLowerCase().includes(filter)) {
-              item.classList.remove('hidden');
-          } else {
-              item.classList.add('hidden');
-          }
-      });
-  });
   document.getElementById("submit").onclick = addUserColleges;
   document.getElementById("delete").onclick = deleteUserColleges;
+  document.getElementById("params").onclick = reportRankings;
 </script>
 <script>
-function makePrediction() {
-    var gpa = document.getElementById("gpa").value;
-    var sat = document.getElementById("sat").value;
-    var extracurriculars = document.getElementById("Extracurricular_Activities").value;
-    if (sat > 1600) {
-        alert("SAT score cannot exceed 1600");
-        return;
-    }
-    if (gpa > 5) {
-        alert("GPA cannot exceed 5");
-        return;
-    }
-    var data = {
-        gpa: gpa,
-        SAT: sat,
-        Extracurricular_Activities: extracurriculars
-    };
-    fetch('http://127.0.0.1:8086/api/users/prediction', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(result => {
-        var predictionResultElement = document.getElementById("predictionResult");
-        if (result === "Accepted") {
-            predictionResultElement.style.color = "green";
-            createConfetti();
-        } else if (result === "Waitlisted") {
-            predictionResultElement.style.color = "yellow";
-        } else if (result === "Rejected") {
-            predictionResultElement.style.color = "red";
-        }
-        predictionResultElement.textContent = result;
-        alert("Prediction successful: " + result); 
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert("Prediction request failed: " + error.message); 
-    });
-}
-function createConfetti() {
-    for (var i = 0; i < 100; i++) {
-        var confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.left = Math.random() * window.innerWidth + 'px';
-        confetti.style.animationDelay = Math.random() * 4 + 's';
-        confetti.style.backgroundColor = getRandomColor();
-        document.body.appendChild(confetti);
-    }
-}
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-document.getElementById("checkCompatibility").addEventListener("click", makePrediction);
-document.getElementById("params").onclick = makePrediction;
+  function makePrediction() {
+      var gpa = document.getElementById("gpa").value;
+      var sat = document.getElementById("sat").value;
+      var extracurriculars = document.getElementById("Extracurricular_Activities").value;
+      if (sat > 1600) {
+          alert("SAT score cannot exceed 1600");
+          return;
+      }
+      if (gpa > 5) {
+          alert("GPA cannot exceed 5");
+          return;
+      }
+      var data = {
+          gpa: gpa,
+          SAT: sat,
+          Extracurricular_Activities: extracurriculars
+      };
+      fetch('http://127.0.0.1:8086/api/users2/prediction', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
+      .then(result => {
+          var predictionResultElement = document.getElementById("predictionResult");
+          if (result === "Accepted") {
+              predictionResultElement.style.color = "green";
+              createConfetti();
+          } else if (result === "Waitlisted") {
+              predictionResultElement.style.color = "yellow";
+          } else if (result === "Rejected") {
+              predictionResultElement.style.color = "red";
+          }
+          predictionResultElement.textContent = result;
+          alert("Prediction successful: " + result); 
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert("Prediction request failed: " + error.message); 
+      });
+  }
+  function createConfetti() {
+      for (var i = 0; i < 100; i++) {
+          var confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * window.innerWidth + 'px';
+          confetti.style.animationDelay = Math.random() * 4 + 's';
+          confetti.style.backgroundColor = getRandomColor();
+          document.body.appendChild(confetti);
+      }
+  }
+  function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+  }
+  document.getElementById("checkCompatibility").addEventListener("click", makePrediction);
 </script>
 <!-- Collaborative code for AI chatbot integration -->
 <script>
-window.embeddedChatbotConfig = {
-chatbotId: "i0qi9UFe_VVLBFzSJ5_35",
-domain: "www.chatbase.co"
-}
+  window.embeddedChatbotConfig = {
+  chatbotId: "i0qi9UFe_VVLBFzSJ5_35",
+  domain: "www.chatbase.co"
+  }
 </script>
 <script
-src="https://www.chatbase.co/embed.min.js"
-chatbotId="i0qi9UFe_VVLBFzSJ5_35"
-domain="www.chatbase.co"
-defer>
+  src="https://www.chatbase.co/embed.min.js"
+  chatbotId="i0qi9UFe_VVLBFzSJ5_35"
+  domain="www.chatbase.co"
+  defer>
 </script>
