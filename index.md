@@ -122,6 +122,12 @@ permalink: /myscout
         </ul>
         <button id="delete">Delete Selections</button>
         <br>
+        <h2>FIND COLLEGES</h2>
+        <input type="text" placeholder="Search for items..." id="searchInput">
+        <ul id="appList">
+        </ul>
+        <button id="submit">Submit Selections</button>
+        <br>
         <h2>MATCH COLLEGES</h2>
         <input type="text" placeholder="Desired tuition" id="tuition">
         <input type="text" placeholder="Weight" id="tuition_weight">
@@ -136,12 +142,6 @@ permalink: /myscout
         <button id="params">Submit Parametesr</button>
         <ul id="matched_list">
         </ul>
-        <br>
-        <h2>FIND COLLEGES</h2>
-        <input type="text" placeholder="Search for items..." id="searchInput">
-        <ul id="appList">
-        </ul>
-        <button id="submit">Submit Selections</button>
         <br>
         <br>
         <br>
