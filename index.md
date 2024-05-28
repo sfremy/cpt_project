@@ -121,11 +121,27 @@ permalink: /myscout
         <ul id="api_applist">
         </ul>
         <button id="delete">Delete Selections</button>
+        <br>
+        <h2>MATCH COLLEGES</h2>
+        <input type="text" placeholder="Desired tuition" id="tuition">
+        <input type="text" placeholder="Weight" id="tuition_weight">
+        <input type="text" placeholder="Number of students" id="num">
+        <input type="text" placeholder="Weight" id="num_weight">
+        <input type="text" placeholder="Student-faculty ratio (X:1)" id="ratio">
+        <input type="text" placeholder="Weight" id="ratio_weight">
+        <input type="text" placeholder="Safety score (incidents/100)" id="safety">
+        <input type="text" placeholder="Weight" id="safety_weight">
+        <input type="text" placeholder="Graduation rate" id="grad">
+        <input type="text" placeholder="Weight" id="grad_weight">
+        <br>
         <h2>FIND COLLEGES</h2>
         <input type="text" placeholder="Search for items..." id="searchInput">
         <ul id="appList">
         </ul>
-        <button id="submit">Submit Selections</button><br><br><br><br>
+        <button id="submit">Submit Selections</button>
+        <br>
+        <br>
+        <br>
         <aside id="newsSection">
           <h3>Recent college news</h3>
           <article>
@@ -134,25 +150,25 @@ permalink: /myscout
           </article>
         </aside>
         <aside>
-        <h1>Admission Predictor</h1>
-        <p>This assesses whether you are likely to get into the UC given your SAT, GPA, and number of extracurriculars.</p>
-        <p id="predictionResult"></p>
-        <div class="container">
-        <div class="input-box">
-        <label for="sat">SAT Score:</label><br>
-        <input type="number" id="sat" name="sat" placeholder="SAT score">
-        </div>
-        <div class="input-box">
-        <label for="gpa">GPA:</label><br>
-        <input type="number" step="0.01" id="gpa" name="gpa" placeholder="GPA">
-        </div>
-        <div class="input-box">
-        <label for="extracurriculars">Extracurriculars:</label><br>
-        <input type="number" id="Extracurricular_Activities" name="Extracurricular_Activities" placeholder="Extracurriculars">
-        </div>
-        <br>
-        <button class="btn" id="checkCompatibility">Check</button>
-        </div>
+          <h1>Admission Predictor</h1>
+          <p>This assesses whether you are likely to get into the UC given your SAT, GPA, and number of extracurriculars.</p>
+          <p id="predictionResult"></p>
+          <div class="container">
+            <div class="input-box">
+              <label for="sat">SAT Score:</label><br>
+              <input type="number" id="sat" name="sat" placeholder="SAT score">
+            </div>
+            <div class="input-box">
+              <label for="gpa">GPA:</label><br>
+              <input type="number" step="0.01" id="gpa" name="gpa" placeholder="GPA">
+            </div>
+            <div class="input-box">
+              <label for="extracurriculars">Extracurriculars:</label><br>
+              <input type="number" id="Extracurricular_Activities" name="Extracurricular_Activities" placeholder="Extracurriculars">
+            </div>
+            <br>
+            <button class="btn" id="checkCompatibility">Check</button>
+          </div>
         </aside>
 <script type="module">
   // COLLABORATIVE CODE - Simulate fetching news data from an API
