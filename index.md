@@ -195,53 +195,49 @@ permalink: /myscout
   document.addEventListener('DOMContentLoaded',getFullList);
   // Written by group member
   function updateUserList() {
-      // Clear the extant list
-      document.getElementById('api_applist').innerHTML = '';
-      // Fetching edit endpoint
-      fetch('http://127.0.0.1:8086/api/users/edit', {
-          method: 'POST', // Make a POST request to backend
-          headers: {
-              'Content-Type': 'application/json' // Set the content type header
-          },
-          body: JSON.stringify({ name: document.getElementById("name").value }) // Get username
-      })
-          .then(response => response.json())
-          .then(data => {
-              data.forEach(item => {
-                // Create an <li> element
-                var listItem = document.createElement('li');
-                // Create an <img> element with the image URL
-                var image = document.createElement('img');
-                image.src = item.image; // Access 'img' property from JSON
-                // Create a text node with the 'name' property as content
-                var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
-                // Create an anchor element for redirect
-                var link = document.createElement('a');
-                link.href = item.url; // Access 'url' property from JSON
-                link.appendChild(textNode); // Append the text node to the anchor
-                // Append the image and link to the <li> element
-                listItem.appendChild(image);
-                listItem.appendChild(textNode);
-                listItem.appendChild(link);
-                // Append the <li> element to the <ul> section
-                document.getElementById('api_applist').appendChild(listItem);
-                listItem.addEventListener('click', function() {
-                  // Toggle the 'selected' class when clicked
-                  listItem.classList.toggle('highlight');
-                });
-              });
-          })
-          .catch(error => {
-              // Display error in a popup window
-              window.alert('Error: ' + error);
-          }); // Handle any errors that occur during the request
+    // Clear the extant list
+    document.getElementById('api_applist').innerHTML = '';
+    // Fetching edit endpoint
+    fetch('http://127.0.0.1:8086/api/users/edit', {
+        method: 'POST', // Make a POST request to backend
+        headers: {
+            'Content-Type': 'application/json' // Set the content type header
+        },
+        body: JSON.stringify({ name: document.getElementById("name").value }) // Get username
+    })
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(item => {
+            // Create an <li> element
+            var listItem = document.createElement('li');
+            // Create an <img> element with the image URL
+            var image = document.createElement('img');
+            image.src = item.image; // Access 'img' property from JSON
+            // Create a text node with the 'name' property as content
+            var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
+            // Create an anchor element for redirect
+            var link = document.createElement('a');
+            link.href = item.url; // Access 'url' property from JSON
+            link.appendChild(textNode); // Append the text node to the anchor
+            // Append the image and link to the <li> element
+            listItem.appendChild(image);
+            listItem.appendChild(link); // Append the link (which contains textNode) to the <li>
+            // Append the <li> element to the <ul> section
+            document.getElementById('api_applist').appendChild(listItem);
+            listItem.addEventListener('click', function() {
+              // Toggle the 'selected' class when clicked
+              listItem.classList.toggle('highlight');
+            });
+        });
+    })
+    .catch(error => {
+        // Display error in a popup window
+        window.alert('Error: ' + error);
+    }); // Handle any errors that occur during the request
   }
   // Function to retrieve selected items
   function getSelectedItems() {
     return document.querySelectorAll('#appList > li.selected');
-  }
-  function getDeletions() {
-    return document.querySelectorAll('#api_applist > li.highlight');
   }
   // Written collaboratively
   function addUserColleges() {
@@ -275,33 +271,36 @@ permalink: /myscout
         window.alert('Error: ' + error);
       });// Handle any errors that occur during the request
   }
+  function getDeletions() {
+    return document.querySelectorAll('#api_applist > li.highlight');
+  }
   function deleteUserColleges() {
     var deletions = getDeletions();
     var deletedNames = [];
-     deletions.forEach(item => {
-      // Find the text node within the anchor element
-      var link = item.querySelector('a');
-      if (link) {
-        var textNode = link.firstChild;
-        if (textNode) {
-            deletedNames.push(textNode.textContent);
+    deletions.forEach(item => {
+        // Find the text node within the anchor element
+        var link = item.querySelector('a');
+        if (link) {
+            var textNode = link.firstChild;
+            if (textNode) {
+                deletedNames.push(textNode.textContent);
+            }
         }
-      }
     });
     fetch('http://127.0.0.1:8086/api/users/edit', {
       method: 'DELETE',
       headers: {
           'Content-Type': 'application/json'
       },
-      //Body contains selections & username
+      // Body contains selections & username
       body: JSON.stringify({
         id: document.getElementById("name").value,
         college_list: deletedNames
-        })
+      })
     })
     .then(response => response.json())
     .then(data => {
-      updateUserList(); //updateUserList
+      updateUserList(); // updateUserList
     })
     .catch(error => {
       // Display error in a popup window
