@@ -135,6 +135,7 @@ permalink: /myscout
         </aside>
         <aside>
         <h1>Admission Predictor</h1>
+        <p>This assesses whether you are likely to get into the UC given your SAT, GPA, and number of extracurriculars.</p>
         <p id="predictionResult"></p>
         <div class="container">
         <div class="input-box">
