@@ -3,7 +3,6 @@ layout: default
 title: MyScout
 permalink: /myscout
 ---
-
 <html>
 <head>
     <meta charset="UTF-8">
@@ -105,11 +104,32 @@ permalink: /myscout
                 margin-top: 20px;
             }
         }
+        .selected {
+          background-color: blue; /* Define the highlight color */
+        }
     </style>
 </head>
-
+<body>
+    <main>
+      <section id="reviewApplications">
+        <h3>Your Username</h3>
+        <input type="text" placeholder="Enter your username" id="name">
+        <h2>REVIEW YOUR APPLICATIONS</h2>
+        <ul id="api_applist">
+        </ul>
+        <h2>FIND COLLEGES</h2>
+        <input type="text" placeholder="Search for items..." id="searchInput">
+        <ul id="appList">
+        </ul>
+        <button id="submit">Submit Selections</button><br><br><br><br>
+        <aside id="newsSection">
+          <h3>Recent college news</h3>
+          <article>
+            <h4>News Title</h4>
+            <p>News summary...</p>
+          </article>
+        </aside>
 <script type="module">
-
 // COLLABORATIVE CODE - Simulate fetching news data from an API
 function fetchNews() {
   // Example static news data
@@ -120,7 +140,6 @@ function fetchNews() {
   ];
   return newsData;
 }
-
 // Written by group member
 function updateNewsSection() {
   const newsData = fetchNews();
@@ -141,7 +160,6 @@ function updateNewsSection() {
 }
 // Call the function to update the news section when the page loads
 document.addEventListener('DOMContentLoaded', updateNewsSection);
-
 // Written by group member
 function getFullList() {
   // Fetching edit endpoint
@@ -151,21 +169,16 @@ function getFullList() {
       data.forEach(item => {
         // Create an <li> element
         var listItem = document.createElement('li');
-
         // Create an <img> element with the image URL
         var image = document.createElement('img');
         image.src = item.image; // Access 'img' property from JSON
-
         // Create a text node with the 'name' property as content
         var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
-
         // Append the image and text to the <li> element
         listItem.appendChild(image);
         listItem.appendChild(textNode);
-
         // Append the <li> element to the <ul> section
         document.getElementById('appList').appendChild(listItem);
-
         listItem.addEventListener('click', function() {
           // Toggle the 'selected' class when clicked
           listItem.classList.toggle('selected');
@@ -174,15 +187,12 @@ function getFullList() {
     })
     .catch(error => console.error('Error:', error)); // Handle any errors that occur during the request
 }
-
 //Generate this list when the page loads
 document.addEventListener('DOMContentLoaded',getFullList);
-
 // Written by group member
 function updateUserList() {
     // Clear the extant list
     document.getElementById('api_applist').innerHTML = '';
-
     // Fetching edit endpoint
     fetch('http://127.0.0.1:8086/api/users/edit', {
         method: 'POST', // Make a POST request to backend
@@ -196,24 +206,19 @@ function updateUserList() {
             data.forEach(item => {
                 // Create an <li> element
                 var listItem = document.createElement('li');
-
                 // Create an <img> element with the image URL
                 var image = document.createElement('img');
                 image.src = item.image; // Access 'img' property from JSON
-
                 // Create a text node with the 'name' property as content
                 var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
-
                 // Create an anchor element for redirect
                 var link = document.createElement('a');
                 link.href = item.url; // Access 'url' property from JSON
                 link.appendChild(textNode); // Append the text node to the anchor
-
                 // Append the image and link to the <li> element
                 listItem.appendChild(image);
                 listItem.appendChild(textNode);
                 listItem.appendChild(link);
-
                 // Append the <li> element to the <ul> section
                 document.getElementById('api_applist').appendChild(listItem);
             });
@@ -223,17 +228,14 @@ function updateUserList() {
             window.alert('Error: ' + error);
         }); // Handle any errors that occur during the request
 }
-
 // Function to retrieve selected items
 function getSelectedItems() {
   return document.querySelectorAll('#appList > li.selected');
 }
-
 // Written collaboratively
 function addUserColleges() {
   // Get all selected items
   var selectedItems = getSelectedItems();
-  
   // Extract names from selected items
   var selectedNames = [];
   selectedItems.forEach(item => {
@@ -241,7 +243,6 @@ function addUserColleges() {
       var textNode = item.childNodes[1]; // Assuming the text node is the second child
       selectedNames.push(textNode.textContent);
   });
-
   // Make a PUT request to the backend API endpoint
   fetch('http://127.0.0.1:8086/api/users/edit', {
       method: 'PUT',
@@ -250,45 +251,32 @@ function addUserColleges() {
       },
       //Body contains selections & username
       body: JSON.stringify({
-        id: document.getElementById("name").value, 
+        id: document.getElementById("name").value,
         college_list: selectedNames
         })
     })
     .then(response => response.json())
     .then(data => {
-      updateUserList(); //updateUserList 
+      updateUserList(); //updateUserList
     })
     .catch(error => {
       // Display error in a popup window
       window.alert('Error: ' + error);
     });// Handle any errors that occur during the request
 }
-
+document.getElementById('searchInput').addEventListener('input', function() {
+    var filter = this.value.toLowerCase();
+    var items = document.querySelectorAll('#appList li');
+    items.forEach(function(item) {
+        if (item.textContent.toLowerCase().includes(filter)) {
+            item.classList.remove('hidden');
+        } else {
+            item.classList.add('hidden');
+        }
+    });
+});
 document.getElementById("submit").onclick = addUserColleges;
 </script>
-
-<body>
-    <main>
-      <section id="reviewApplications">
-        <h3>Your Username</h3>
-        <input type="text" placeholder="Enter your username" id="name">
-        <h2>REVIEW YOUR APPLICATIONS</h2>
-        <ul id="api_applist">
-        </ul>
-        <h2>FIND COLLEGES</h2>
-        <ul id="appList">
-        </ul>
-        <button id="submit">Submit Selections</button><br><br><br><br>
-        <a href='{{site.baseurl}}/predictor'>Click here to predict your admission decision!</a><br><br>
-        <a href='{{site.baseurl}}/delete_colleges'>Click here to delete colleges</a><br><br>
-        <aside id="newsSection">
-          <h3>Recent college news</h3>
-          <article>
-            <h4>News Title</h4>
-            <p>News summary...</p>
-          </article>
-        </aside>
-
 <!-- Collaborative code for AI chatbot integration -->
 <script>
 window.embeddedChatbotConfig = {
@@ -296,7 +284,6 @@ chatbotId: "i0qi9UFe_VVLBFzSJ5_35",
 domain: "www.chatbase.co"
 }
 </script>
-
 <script
 src="https://www.chatbase.co/embed.min.js"
 chatbotId="i0qi9UFe_VVLBFzSJ5_35"
