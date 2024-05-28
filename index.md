@@ -133,6 +133,26 @@ permalink: /myscout
             <p>News summary...</p>
           </article>
         </aside>
+        <aside>
+        <h1>Admission Predictor</h1>
+        <p id="predictionResult"></p>
+        <div class="container">
+        <div class="input-box">
+        <label for="sat">SAT Score:</label><br>
+        <input type="number" id="sat" name="sat" placeholder="SAT score">
+        </div>
+        <div class="input-box">
+        <label for="gpa">GPA:</label><br>
+        <input type="number" step="0.01" id="gpa" name="gpa" placeholder="GPA">
+        </div>
+        <div class="input-box">
+        <label for="extracurriculars">Extracurriculars:</label><br>
+        <input type="number" id="Extracurricular_Activities" name="Extracurricular_Activities" placeholder="Extracurriculars">
+        </div>
+        <br>
+        <button class="btn" id="checkCompatibility">Check</button>
+        </div>
+        </aside>
 <script type="module">
   // COLLABORATIVE CODE - Simulate fetching news data from an API
   function fetchNews() {
@@ -320,6 +340,75 @@ permalink: /myscout
   });
   document.getElementById("submit").onclick = addUserColleges;
   document.getElementById("delete").onclick = deleteUserColleges;
+</script>
+<script>
+function makePrediction() {
+    var gpa = document.getElementById("gpa").value;
+    var sat = document.getElementById("sat").value;
+    var extracurriculars = document.getElementById("Extracurricular_Activities").value;
+    if (sat > 1600) {
+        alert("SAT score cannot exceed 1600");
+        return;
+    }
+    if (gpa > 5) {
+        alert("GPA cannot exceed 5");
+        return;
+    }
+    var data = {
+        gpa: gpa,
+        SAT: sat,
+        Extracurricular_Activities: extracurriculars
+    };
+    fetch('http://127.0.0.1:8086/api/users/prediction', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(result => {
+        var predictionResultElement = document.getElementById("predictionResult");
+        if (result === "Accepted") {
+            predictionResultElement.style.color = "green";
+            createConfetti();
+        } else if (result === "Waitlisted") {
+            predictionResultElement.style.color = "yellow";
+        } else if (result === "Rejected") {
+            predictionResultElement.style.color = "red";
+        }
+        predictionResultElement.textContent = result;
+        alert("Prediction successful: " + result); 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Prediction request failed: " + error.message); 
+    });
+}
+function createConfetti() {
+    for (var i = 0; i < 100; i++) {
+        var confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.animationDelay = Math.random() * 4 + 's';
+        confetti.style.backgroundColor = getRandomColor();
+        document.body.appendChild(confetti);
+    }
+}
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+document.getElementById("checkCompatibility").addEventListener("click", makePrediction);
 </script>
 <!-- Collaborative code for AI chatbot integration -->
 <script>
