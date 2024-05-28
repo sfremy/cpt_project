@@ -119,8 +119,8 @@ permalink: /myscout
         <input type="text" placeholder="Enter your username" id="name">
         <h2>REVIEW YOUR APPLICATIONS</h2>
         <ul id="api_applist">
-        <button id="delete">Delete Selections</button>
         </ul>
+        <button id="delete">Delete Selections</button>
         <h2>FIND COLLEGES</h2>
         <input type="text" placeholder="Search for items..." id="searchInput">
         <ul id="appList">
@@ -278,10 +278,15 @@ permalink: /myscout
   function deleteUserColleges() {
     var deletions = getDeletions();
     var deletedNames = [];
-    deletedNames.forEach(item => {
-        // Find the text node within the list item
-        var textNode = item.childNodes[1]; // Assuming the text node is the second child
-        deletedNames.push(textNode.textContent);
+     deletions.forEach(item => {
+      // Find the text node within the anchor element
+      var link = item.querySelector('a');
+      if (link) {
+        var textNode = link.firstChild;
+        if (textNode) {
+            deletedNames.push(textNode.textContent);
+        }
+      }
     });
     fetch('http://127.0.0.1:8086/api/users/edit', {
       method: 'DELETE',
