@@ -133,6 +133,8 @@ permalink: /myscout
         <input type="text" placeholder="Weight" id="safety_weight">
         <input type="text" placeholder="Graduation rate" id="grad">
         <input type="text" placeholder="Weight" id="grad_weight">
+        <ul id="matched_list">
+        </ul>
         <br>
         <h2>FIND COLLEGES</h2>
         <input type="text" placeholder="Search for items..." id="searchInput">
