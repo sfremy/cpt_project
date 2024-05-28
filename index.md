@@ -107,6 +107,9 @@ permalink: /myscout
         .selected {
           background-color: blue; /* Define the highlight color */
         }
+        .highlight {
+          background-color: red; /* Define the highlight color */
+        }
     </style>
 </head>
 <body>
@@ -116,6 +119,7 @@ permalink: /myscout
         <input type="text" placeholder="Enter your username" id="name">
         <h2>REVIEW YOUR APPLICATIONS</h2>
         <ul id="api_applist">
+        <button id="delete">Delete Selections</button>
         </ul>
         <h2>FIND COLLEGES</h2>
         <input type="text" placeholder="Search for items..." id="searchInput">
@@ -130,80 +134,80 @@ permalink: /myscout
           </article>
         </aside>
 <script type="module">
-// COLLABORATIVE CODE - Simulate fetching news data from an API
-function fetchNews() {
-  // Example static news data
-  const newsData = [
-    { title: "College Applications Reach Record Numbers", summary: "The number of college applications has hit a new record this year, with universities seeing a significant increase in submissions." },
-    { title: "Scholarship Opportunities Expand", summary: "Several new scholarship programs have been announced, aiming to support students from diverse backgrounds in achieving their higher education goals." },
-    { title: "Innovative STEM Programs Launched", summary: "Leading universities are introducing cutting-edge STEM programs to keep pace with the rapidly evolving demands of the tech industry." }
-  ];
-  return newsData;
-}
-// Written by group member
-function updateNewsSection() {
-  const newsData = fetchNews();
-  const newsSection = document.getElementById('newsSection');
-  // Clear existing news content
-  newsSection.innerHTML = '<h3>Recent college news</h3>';
-  // Dynamically create and append news articles
-  newsData.forEach(news => {
-    const article = document.createElement('article');
-    const title = document.createElement('h4');
-    const summary = document.createElement('p');
-    title.textContent = news.title;
-    summary.textContent = news.summary;
-    article.appendChild(title);
-    article.appendChild(summary);
-    newsSection.appendChild(article);
-  });
-}
-// Call the function to update the news section when the page loads
-document.addEventListener('DOMContentLoaded', updateNewsSection);
-// Written by group member
-function getFullList() {
-  // Fetching edit endpoint
-  fetch('http://127.0.0.1:8086/api/users/edit')
-    .then(response => response.json()) // Parse the JSON response
-    .then(data => {
-      data.forEach(item => {
-        // Create an <li> element
-        var listItem = document.createElement('li');
-        // Create an <img> element with the image URL
-        var image = document.createElement('img');
-        image.src = item.image; // Access 'img' property from JSON
-        // Create a text node with the 'name' property as content
-        var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
-        // Append the image and text to the <li> element
-        listItem.appendChild(image);
-        listItem.appendChild(textNode);
-        // Append the <li> element to the <ul> section
-        document.getElementById('appList').appendChild(listItem);
-        listItem.addEventListener('click', function() {
-          // Toggle the 'selected' class when clicked
-          listItem.classList.toggle('selected');
-        });
-      });
-    })
-    .catch(error => console.error('Error:', error)); // Handle any errors that occur during the request
-}
-//Generate this list when the page loads
-document.addEventListener('DOMContentLoaded',getFullList);
-// Written by group member
-function updateUserList() {
-    // Clear the extant list
-    document.getElementById('api_applist').innerHTML = '';
+  // COLLABORATIVE CODE - Simulate fetching news data from an API
+  function fetchNews() {
+    // Example static news data
+    const newsData = [
+      { title: "College Applications Reach Record Numbers", summary: "The number of college applications has hit a new record this year, with universities seeing a significant increase in submissions." },
+      { title: "Scholarship Opportunities Expand", summary: "Several new scholarship programs have been announced, aiming to support students from diverse backgrounds in achieving their higher education goals." },
+      { title: "Innovative STEM Programs Launched", summary: "Leading universities are introducing cutting-edge STEM programs to keep pace with the rapidly evolving demands of the tech industry." }
+    ];
+    return newsData;
+  }
+  // Written by group member
+  function updateNewsSection() {
+    const newsData = fetchNews();
+    const newsSection = document.getElementById('newsSection');
+    // Clear existing news content
+    newsSection.innerHTML = '<h3>Recent college news</h3>';
+    // Dynamically create and append news articles
+    newsData.forEach(news => {
+      const article = document.createElement('article');
+      const title = document.createElement('h4');
+      const summary = document.createElement('p');
+      title.textContent = news.title;
+      summary.textContent = news.summary;
+      article.appendChild(title);
+      article.appendChild(summary);
+      newsSection.appendChild(article);
+    });
+  }
+  // Call the function to update the news section when the page loads
+  document.addEventListener('DOMContentLoaded', updateNewsSection);
+  // Written by group member
+  function getFullList() {
     // Fetching edit endpoint
-    fetch('http://127.0.0.1:8086/api/users/edit', {
-        method: 'POST', // Make a POST request to backend
-        headers: {
-            'Content-Type': 'application/json' // Set the content type header
-        },
-        body: JSON.stringify({ name: document.getElementById("name").value }) // Get username
-    })
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(item => {
+    fetch('http://127.0.0.1:8086/api/users/edit')
+      .then(response => response.json()) // Parse the JSON response
+      .then(data => {
+        data.forEach(item => {
+          // Create an <li> element
+          var listItem = document.createElement('li');
+          // Create an <img> element with the image URL
+          var image = document.createElement('img');
+          image.src = item.image; // Access 'img' property from JSON
+          // Create a text node with the 'name' property as content
+          var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
+          // Append the image and text to the <li> element
+          listItem.appendChild(image);
+          listItem.appendChild(textNode);
+          // Append the <li> element to the <ul> section
+          document.getElementById('appList').appendChild(listItem);
+          listItem.addEventListener('click', function() {
+            // Toggle the 'selected' class when clicked
+            listItem.classList.toggle('selected');
+          });
+        });
+      })
+      .catch(error => console.error('Error:', error)); // Handle any errors that occur during the request
+  }
+  //Generate this list when the page loads
+  document.addEventListener('DOMContentLoaded',getFullList);
+  // Written by group member
+  function updateUserList() {
+      // Clear the extant list
+      document.getElementById('api_applist').innerHTML = '';
+      // Fetching edit endpoint
+      fetch('http://127.0.0.1:8086/api/users/edit', {
+          method: 'POST', // Make a POST request to backend
+          headers: {
+              'Content-Type': 'application/json' // Set the content type header
+          },
+          body: JSON.stringify({ name: document.getElementById("name").value }) // Get username
+      })
+          .then(response => response.json())
+          .then(data => {
+              data.forEach(item => {
                 // Create an <li> element
                 var listItem = document.createElement('li');
                 // Create an <img> element with the image URL
@@ -221,38 +225,73 @@ function updateUserList() {
                 listItem.appendChild(link);
                 // Append the <li> element to the <ul> section
                 document.getElementById('api_applist').appendChild(listItem);
-            });
-        })
-        .catch(error => {
-            // Display error in a popup window
-            window.alert('Error: ' + error);
-        }); // Handle any errors that occur during the request
-}
-// Function to retrieve selected items
-function getSelectedItems() {
-  return document.querySelectorAll('#appList > li.selected');
-}
-// Written collaboratively
-function addUserColleges() {
-  // Get all selected items
-  var selectedItems = getSelectedItems();
-  // Extract names from selected items
-  var selectedNames = [];
-  selectedItems.forEach(item => {
-      // Find the text node within the list item
-      var textNode = item.childNodes[1]; // Assuming the text node is the second child
-      selectedNames.push(textNode.textContent);
-  });
-  // Make a PUT request to the backend API endpoint
-  fetch('http://127.0.0.1:8086/api/users/edit', {
-      method: 'PUT',
+                listItem.addEventListener('click', function() {
+                  // Toggle the 'selected' class when clicked
+                  listItem.classList.toggle('highlight');
+                });
+              });
+          })
+          .catch(error => {
+              // Display error in a popup window
+              window.alert('Error: ' + error);
+          }); // Handle any errors that occur during the request
+  }
+  // Function to retrieve selected items
+  function getSelectedItems() {
+    return document.querySelectorAll('#appList > li.selected');
+  }
+  function getDeletions() {
+    return document.querySelectorAll('#api_applist > li.highlight');
+  }
+  // Written collaboratively
+  function addUserColleges() {
+    // Get all selected items
+    var selectedItems = getSelectedItems();
+    // Extract names from selected items
+    var selectedNames = [];
+    selectedItems.forEach(item => {
+        // Find the text node within the list item
+        var textNode = item.childNodes[1]; // Assuming the text node is the second child
+        selectedNames.push(textNode.textContent);
+    });
+    // Make a PUT request to the backend API endpoint
+    fetch('http://127.0.0.1:8086/api/users/edit', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        //Body contains selections & username
+        body: JSON.stringify({
+          id: document.getElementById("name").value,
+          college_list: selectedNames
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+        updateUserList(); //updateUserList
+      })
+      .catch(error => {
+        // Display error in a popup window
+        window.alert('Error: ' + error);
+      });// Handle any errors that occur during the request
+  }
+  function deleteUserColleges() {
+    var deletions = getDeletions();
+    var deletedNames = [];
+    deletedNames.forEach(item => {
+        // Find the text node within the list item
+        var textNode = item.childNodes[1]; // Assuming the text node is the second child
+        deletedNames.push(textNode.textContent);
+    });
+    fetch('http://127.0.0.1:8086/api/users/edit', {
+      method: 'DELETE',
       headers: {
           'Content-Type': 'application/json'
       },
       //Body contains selections & username
       body: JSON.stringify({
         id: document.getElementById("name").value,
-        college_list: selectedNames
+        college_list: deletedNames
         })
     })
     .then(response => response.json())
@@ -262,20 +301,21 @@ function addUserColleges() {
     .catch(error => {
       // Display error in a popup window
       window.alert('Error: ' + error);
-    });// Handle any errors that occur during the request
-}
-document.getElementById('searchInput').addEventListener('input', function() {
-    var filter = this.value.toLowerCase();
-    var items = document.querySelectorAll('#appList li');
-    items.forEach(function(item) {
-        if (item.textContent.toLowerCase().includes(filter)) {
-            item.classList.remove('hidden');
-        } else {
-            item.classList.add('hidden');
-        }
     });
-});
-document.getElementById("submit").onclick = addUserColleges;
+  }
+  document.getElementById('searchInput').addEventListener('input', function() {
+      var filter = this.value.toLowerCase();
+      var items = document.querySelectorAll('#appList li');
+      items.forEach(function(item) {
+          if (item.textContent.toLowerCase().includes(filter)) {
+              item.classList.remove('hidden');
+          } else {
+              item.classList.add('hidden');
+          }
+      });
+  });
+  document.getElementById("submit").onclick = addUserColleges;
+  document.getElementById("delete").onclick = deleteUserColleges;
 </script>
 <!-- Collaborative code for AI chatbot integration -->
 <script>
