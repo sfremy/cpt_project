@@ -139,6 +139,7 @@ permalink: /myscout
         <input type="text" placeholder="Graduation rate" id="grad">
         <input type="text" placeholder="Weight" id="grad_weight">
         <button id="params">Submit Parameters</button>
+        <p>Note: percent matches are relative to an hypothetical 'ideal college' which perfectly matches specificiations.</p>
         <ul id="matched_list">
         </ul>
         <br>
