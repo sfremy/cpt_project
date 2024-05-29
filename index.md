@@ -257,7 +257,7 @@ permalink: /myscout
             var textNode = document.createTextNode(item.name); // Access 'name' property from JSON
             // Create an anchor element for redirect
             var link = document.createElement('a');
-            link.href = item.url; // Access 'url' property from JSON
+            link.href = item.link; // Access 'url' property from JSON
             link.appendChild(textNode); // Append the text node to the anchor
             // Append the image and link to the <li> element
             listItem.appendChild(image);
